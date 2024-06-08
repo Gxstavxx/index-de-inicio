@@ -26,34 +26,34 @@
                     echo "</div>";
                 } ?>
 
-                <p class="login-box-msg"> <b>Login</b></p>
+                <p style=" color: white;"class="login-box-msg"><b>Login</b></p>
                 <form action="revisar.php" method="post">
+
+                <label class="form-label" for="usuario" style=" color: white;">Usuario:</label>
                     <div class="input-group mb-3">
-                        <input type="email" name="correo" class="form-control" placeholder="Ingrese su correo" required>
+                        <input type="email" name="correo" class="form-control" placeholder="Ingrese su usuario" required>
                     </div>
+                    <label class="form-label" style=" color: white;" for="usuario">Contraseña:</label>
                     <div class="input-group mb-3">
                         <input type="password" name="contraseña" class="form-control" placeholder="Contraseña" required>
                     </div>
                     <div class="row">
                         <center>
                             <div class="col-6">
-                                <button type="submit" class="btn btn-primary btn-block">INICIAR SESION</button>
+                                <button type="submit" class="btn btn-block btn-outline-primary btn-sm">INICIAR SESION</button>
                             </div>
                         </center>
                     </div>
-                </form>
-                <form action="registrar.php" method="post">
-                    <div class="social-auth-links text-center mb-3">
-                        <br>
-                        <button type="submit" class="btn btn-primary btn-block">CREAR CUENTA NUEVA</button>
-                    </div><br>
-                </form>
+                </form><br>
+              
                 <form action="recuperar.php" method="post">
-                    <center>
+                 
                         <div class="col-6">
-                            <button type="submit" class="btn btn-primary btn-block">Recuperar Contraseña</button><br>
-                        </div>
-                    </center>
+                            <center>
+                        <button type="submit" style="background-color: transparent; border: none; color: white; text-decoration: underline; white-space: nowrap; width: 150px;">Olvidaste tu contraseña?</button><br>
+                        </center>   
+                    </div>
+                  
                 </form>
             </div>
 
