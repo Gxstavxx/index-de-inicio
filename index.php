@@ -54,7 +54,7 @@
              </div><br>
            
          </form>
-                <form action="crear.php" method="post">
+                <form action="registrar.php" method="post">
                 <div class="col-6">
                             <center>
                         <button type="submit" class="btn btn-block btn-outline-danger btn-sm" >Crear cuenta</button><br>

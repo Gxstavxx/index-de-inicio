@@ -9,3 +9,9 @@ body.background {
     background: rgba(255, 255, 255, 0.199);
 }
 
+body.background2 {
+    background-image: url(registrar.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
