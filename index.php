@@ -44,17 +44,24 @@
                             </div>
                         </center>
                     </div>
-                </form><br>
-              
+                </form>
                 <form action="recuperar.php" method="post">
                  
-                        <div class="col-6">
+                 <div class="col-6">
+                     <center>
+                 <button type="submit" style="background-color: transparent; border: none; color: white; text-decoration: underline; white-space: nowrap; width: 150px;">Olvidaste tu contraseña?</button><br>
+                 </center>   
+             </div><br>
+           
+         </form>
+                <form action="crear.php" method="post">
+                <div class="col-6">
                             <center>
-                        <button type="submit" style="background-color: transparent; border: none; color: white; text-decoration: underline; white-space: nowrap; width: 150px;">Olvidaste tu contraseña?</button><br>
+                        <button type="submit" class="btn btn-block btn-outline-danger btn-sm" >Crear cuenta</button><br>
                         </center>   
                     </div>
-                  
-                </form>
+                    </form>
+
             </div>
 
         </div>

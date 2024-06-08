@@ -23,29 +23,6 @@
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini">
-    <?php
-        session_start();
-        
-        if (!isset($_SESSION['nickname']) || !isset($_SESSION['id'])) {
-            header('location: index.php');
-        }
-
-
-    ?>
-    <?php
-        include "conexion.php";
-        $sql = $conn ->query("SELECT * FROM s");
-        $dat= $sql->fetch_object();
-
-    ?>
-    <?php
-        include "conexion.php";
-        $sql = $conn ->query("SELECT * FROM comentario");
-        $dat= $sql->fetch_object();
-
-    ?>
-
 
 
     <!-- Site wrapper -->
@@ -78,9 +55,7 @@
                     <div class="image">
                         
                     </div>
-                    <div class="info">
-                        <a href="#" class="d-block"> <?php echo $_SESSION['nickname']; ?> </a>
-                    </div>
+                   
                 </div>
 
                 <!-- SidebarSearch Form -->
@@ -106,7 +81,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                    Panel de Control
+                                    Alumnos
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -114,7 +89,7 @@
                                 <li class="nav-item">
                                     <a href="interfaz.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Inicio</p>
+                                        <p>Alumnos</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -148,49 +123,8 @@
                         <div class="col-sm-6">
                             <h1>SexyBoys.com</h1>
                         </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item active">Publicaciones</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
-
-            <!-- Main content -->
-            <section class="content">
-
-                <!-- Default box -->
-                <div class="card col-sm-6">
-                <?php
-    include "conexion.php";
-    $sql = $conn ->query("SELECT * FROM comentario");
-    while($dat= $sql->fetch_object()){
-        $sql2 = $conn -> query("SELECT * FROM s WHERE id= $dat->iduser");
-        while($dat2= $sql2->fetch_object()){
-?>
-            <div class="alert alert-info alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h5><i class="icon fas fa-check"></i> <?php echo $nombre = $dat2 -> nickname;  ?> </h5>
-                <?php echo $dat->comen;?>
-            </div>
-
-            <div> 
-    <a href="interfaz.php?id=<?php echo $dat->id; ?>" onclick=  >
-        <i class="far fa-heart" style="color: #000000;"></i>
-    </a> 
-    <a href="interfaz.php?id=<?php echo $dat->id; ?>" onclick="fillIcon(this, 'filled-thumbs-up')">
-        <i class="far fa-thumbs-up fa-rotate-180"></i>
-    </a>
-    <a href="interfaz.php?id=<?php echo $dat->id; ?>" onclick="fillIcon(this, 'filled-comment')">
-        <i class="fas fa-comment-dots" style="color: #00bfff;"></i>
-    </a>
-</div>
-<?php
-        }
-    }
-?>
-
+        
+ 
 
 
 
