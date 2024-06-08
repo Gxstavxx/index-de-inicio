@@ -39,7 +39,7 @@ if(isset($_GET['error'])){
 
 
 
-                <p class="login-box-msg"> <b>Login</b></p>
+                <p class="login-box-msg"> <b>LOGIN</b></p>
                 <form action="revisar.php" method="post">
                     <div class="input-group mb-3">
 
