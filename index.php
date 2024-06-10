@@ -52,8 +52,8 @@
                  <button type="submit" style="background-color: transparent; border: none; color: white; text-decoration: underline; white-space: nowrap; width: 150px;">Olvidaste tu contraseña?</button><br>
                  </center>   
              </div><br>
-           
          </form>
+
                 <form action="registrar.php" method="post">
                 <div class="col-6">
                             <center>

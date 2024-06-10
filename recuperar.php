@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>REGISTRAR USUARIO</title>
+    <title>RECUPERAR CONTRASEÑA</title>
     <link rel="stylesheet" href="estilos1.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -13,82 +13,61 @@
 <body class="background2">
 
     <center>
-
         <div id="B2" class="card col-sm-3" style="margin-top: 7%;">
-
             <div class="card-body login-card-body">
-                <p class="login-box-msg"> <b>CREAR CUENTA  </b></p>
+                <p class="login-box-msg"><b>RECUPERAR CONTRASEÑA</b></p>
                 
                 <div class="custom-controls-stacked row text-center pb-3">
-                    <div class="custom-control custom-radio  col-md-4 text-right">
+                    <div class="custom-control custom-radio col-md-4 text-right">
                         <input id="tipoBusqueda1" name="tipoBusqueda" value="1" type="radio" class="custom-control-input tipoBusqueda" checked="checked">
                         <label for="tipoBusqueda1" class="custom-control-label">Alumno</label>
                     </div>
-                    <div class="custom-control custom-radio  col-md-4 text-left">
+                    <div class="custom-control custom-radio col-md-4 text-left">
                         <input id="tipoBusqueda3" name="tipoBusqueda" value="3" type="radio" class="custom-control-input tipoBusqueda">
                         <label for="tipoBusqueda3" class="custom-control-label">Docente</label>
                     </div>
                 </div>
 
-               <!-- Formulario Alumno -->
-<form id="formAlumno" action="registro.php" method="post">
-    <input type="hidden" name="tipo" value="alumno">
-    <div class="input-group mb-3">
-        <input type="text" name="nombre" class="form-control" placeholder="Ingrese sus Nombres" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" name="apellido" class="form-control" placeholder="Ingrese sus Apellidos" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Usuario" required onblur="addAlumToNickname(this)">
-    </div>
-    <div class="input-group mb-3">
-        <input type="email" name="correo" class="form-control" placeholder="Correo" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="password" name="contraseña" class="form-control" placeholder="Contraseña" required>
-    </div>
-    <div class="row">
-        <center>
-            <div class="col-6">
-                <button type="submit" class="btn btn-block btn-outline-primary btn-sm">CREAR CUENTA</button><br>
-            </div>
-        </center>
-    </div>
-</form>
+                <!-- Formulario Alumno -->
+                <form id="formAlumno" action="rc.php" method="post">
+                    <div class="input-group mb-3">
+                        <input type="email" name="correo" class="form-control" placeholder="Correo" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="nickname" id="nicknameAlumno" class="form-control" placeholder="Usuario" required onblur="addAlumToNickname(this)">
+                    </div>
+                    <input type="hidden" name="tipo" value="alumno">
+                    <div class="row">
+                        <center>
+                            <div class="col-6">
+                                <button type="
+submit" class="btn btn-block btn-outline-primary btn-sm">Verificar</button><br>
+                            </div>
+                        </center>
+                    </div>
+                </form>
 
-<!-- Formulario Docente -->
-<form id="formDocente" action="registro.php" method="post" style="display: none;">
-    <input type="hidden" name="tipo" value="docente">
-    <div class="input-group mb-3">
-        <input type="text" name="nombre" class="form-control" placeholder="Ingrese sus Nombres" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" name="apellido" class="form-control" placeholder="Ingrese sus Apellidos" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Usuario" required onblur="addAlumToUsuario(this)">
-    </div>
-    <div class="input-group mb-3">
-        <input type="email" name="correo" class="form-control" placeholder="Correo" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="password" name="contraseña" class="form-control" placeholder="Contraseña" required>
-    </div>
-    <div class="row">
-        <center>
-            <div class="col-6">
-                <button type="submit" class="btn btn-block btn-outline-primary btn-sm">CREAR CUENTA</button><br>
-            </div>
-        </center>
-    </div>
-</form>
+                <!-- Formulario Docente -->
+                <form id="formDocente" action="rc.php" method="post" style="display: none;">
+                    <div class="input-group mb-3">
+                        <input type="email" name="correo" class="form-control" placeholder="Correo" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="nickname" id="nicknameDocente" class="form-control" placeholder="Usuario" required onblur="addAlumToUsuario(this)">
+                    </div>
+                    <input type="hidden" name="tipo" value="docente">
+                    <div class="row">
+                        <center>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-block btn-outline-primary btn-sm">Verificar</button><br>
+                            </div>
+                        </center>
+                    </div>
+                </form>
 
-        
                 <form action="index.php">
                     <div class="col-6">
-                        <br><button type="submit" class="btn btn-primary btn-block"><i class="fas fa-arrow-left"></i> Regresar</button>
-                        <br>
+                        <br><button type="submit" class="btn btn-primary btn-block"><i class="fas fa-arrow-left"></i> Regresar</button><br>
                     </div>
                 </form>
             </div>
