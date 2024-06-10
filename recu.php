@@ -1,21 +1,27 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    include "conexion.php";
+    include 'conexion.php';
 
     $nickname = $_POST['nickname'];
-    $email = $_POST['email'];
-    $new_password = $_POST['new_password'];
-    $new_password_hashed = md5($new_password);
+    $correo = $_POST['correo'];
+    $nueva_contrasena = $_POST['nueva_contrasena'];
+    $nueva_contrasena_hashed = md5($nueva_contrasena); // Puedes usar otra función de hash más segura como password_hash
 
-    // Actualizar la contraseña en la base de datos
-    $sql = "UPDATE s SET contra='$new_password', contraseña='$new_password_hashed' WHERE nickname='$nickname' AND correo='$email'";
-    if (mysqli_query($conn, $sql)) {
-        // Redirigir a index.php después de actualizar la contraseña
+    $tipo = $_POST['tipo'];
+
+    if ($tipo == 'alumno') {
+        $sql = "UPDATE est SET contra='$nueva_contrasena', contraseña='$nueva_contrasena_hashed' WHERE nickname='$nickname' AND correo='$correo'";
+    } else if ($tipo == 'docente') {
+        $sql = "UPDATE prof SET contra='$nueva_contrasena', contraseña='$nueva_contrasena_hashed' WHERE nickname='$nickname' AND correo='$correo'";
+    }
+
+    if ($conn->query($sql) === TRUE) {
         header("Location: index.php?message=Contraseña actualizada con éxito");
         exit();
     } else {
-        echo "Error al actualizar la contraseña.";
+        echo "Error al actualizar la contraseña: " . $conn->error;
     }
+
+    $conn->close();
 }
 ?>
-
