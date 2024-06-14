@@ -14,77 +14,49 @@
 
     <center>
 
-        <div id="B2" class="card col-sm-3" style="margin-top: 7%;">
+        <div id="B2" class="card col-sm-3" style="margin-top: 6%;">
 
             <div class="card-body login-card-body">
-                <p class="login-box-msg"> <b>CREAR CUENTA  </b></p>
+                <p class="login-box-msg"><b>CREAR CUENTA</b></p>
                 
                 <div class="custom-controls-stacked row text-center pb-3">
-                    <div class="custom-control custom-radio  col-md-4 text-right">
+                    <div class="custom-control custom-radio col-md-4 text-right">
                         <input id="tipoBusqueda1" name="tipoBusqueda" value="1" type="radio" class="custom-control-input tipoBusqueda" checked="checked">
                         <label for="tipoBusqueda1" class="custom-control-label">Alumno</label>
                     </div>
-                    <div class="custom-control custom-radio  col-md-4 text-left">
-                        <input id="tipoBusqueda3" name="tipoBusqueda" value="3" type="radio" class="custom-control-input tipoBusqueda">
-                        <label for="tipoBusqueda3" class="custom-control-label">Docente</label>
-                    </div>
                 </div>
 
-               <!-- Formulario Alumno -->
-<form id="formAlumno" action="registro.php" method="post">
-    <input type="hidden" name="tipo" value="alumno">
-    <div class="input-group mb-3">
-        <input type="text" name="nombre" class="form-control" placeholder="Ingrese sus Nombres" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" name="apellido" class="form-control" placeholder="Ingrese sus Apellidos" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Usuario" required onblur="addAlumToNickname(this)">
-    </div>
-    <div class="input-group mb-3">
-        <input type="email" name="correo" class="form-control" placeholder="Correo" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="password" name="contraseña" class="form-control" placeholder="Contraseña" required>
-    </div>
-    <div class="row">
-        <center>
-            <div class="col-6">
-                <button type="submit" class="btn btn-block btn-outline-primary btn-sm">CREAR CUENTA</button><br>
-            </div>
-        </center>
-    </div>
-</form>
+                <!-- Formulario Alumno -->
+                <form id="formAlumno" action="registro.php" method="post">
+                    <input type="hidden" name="tipo" value="alumno">
+                    <div class="input-group mb-3">
+                        <input type="text" name="nombre" class="form-control" placeholder="Ingrese sus Nombres" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="apellido" class="form-control" placeholder="Ingrese sus Apellidos" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="grado" class="form-control" placeholder="Ingrese su Grado" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="carrera" class="form-control" placeholder="Ingrese su Carrera" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Usuario" required onblur="addAlumToNickname(this)">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="email" name="correo" class="form-control" placeholder="Correo" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" name="contraseña" class="form-control" placeholder="Contraseña" required>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-block btn-outline-primary btn-sm">CREAR</button><br>
+                        </div>
+                    </div>
+                </form>
 
-<!-- Formulario Docente -->
-<form id="formDocente" action="registro.php" method="post" style="display: none;">
-    <input type="hidden" name="tipo" value="docente">
-    <div class="input-group mb-3">
-        <input type="text" name="nombre" class="form-control" placeholder="Ingrese sus Nombres" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" name="apellido" class="form-control" placeholder="Ingrese sus Apellidos" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Usuario" required onblur="addAlumToUsuario(this)">
-    </div>
-    <div class="input-group mb-3">
-        <input type="email" name="correo" class="form-control" placeholder="Correo" required>
-    </div>
-    <div class="input-group mb-3">
-        <input type="password" name="contraseña" class="form-control" placeholder="Contraseña" required>
-    </div>
-    <div class="row">
-        <center>
-            <div class="col-6">
-                <button type="submit" class="btn btn-block btn-outline-primary btn-sm">CREAR CUENTA</button><br>
-            </div>
-        </center>
-    </div>
-</form>
-
-        
                 <form action="index.php">
                     <div class="col-6">
                         <br><button type="submit" class="btn btn-primary btn-block"><i class="fas fa-arrow-left"></i> Regresar</button>
@@ -98,21 +70,11 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const tipoBusqueda1 = document.getElementById('tipoBusqueda1');
-        const tipoBusqueda3 = document.getElementById('tipoBusqueda3');
         const formAlumno = document.getElementById('formAlumno');
-        const formDocente = document.getElementById('formDocente');
 
         tipoBusqueda1.addEventListener('change', function() {
             if (tipoBusqueda1.checked) {
                 formAlumno.style.display = 'block';
-                formDocente.style.display = 'none';
-            }
-        });
-
-        tipoBusqueda3.addEventListener('change', function() {
-            if (tipoBusqueda3.checked) {
-                formAlumno.style.display = 'none';
-                formDocente.style.display = 'block';
             }
         });
     });
@@ -126,19 +88,6 @@
             input.value = value + '-alum';
         } else if (cursorPosition > lastIndexOfAlum + 5) {
             input.setSelectionRange(lastIndexOfAlum + 5, lastIndexOfAlum + 5);
-        }
-    }
-
-    function addAlumToUsuario(input) {
-        const value = input.value.trim();
-        const cursorPosition = input.selectionStart;
-        const lastIndexOfAlum = value.lastIndexOf('-alum');
-        const lastIndexOfProf = value.lastIndexOf('-prof');
-
-        if (lastIndexOfProf === -1 && (lastIndexOfAlum === -1 || cursorPosition <= lastIndexOfAlum)) {
-            input.value = value + '-prof';
-        } else if (lastIndexOfProf !== -1 || cursorPosition > lastIndexOfProf + 5) {
-            input.setSelectionRange(lastIndexOfProf + 5, lastIndexOfProf + 5);
         }
     }
     </script>
