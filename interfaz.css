@@ -1,0 +1,14 @@
+/* Estilo para el corazón cuando se hace clic */
+.filled-heart {
+    color: #ff0000; /* Color rojo */
+}
+
+/* Estilo para el pulgar hacia arriba cuando se hace clic */
+.filled-thumbs-up {
+    color: #0000ff; /* Color azul */
+}
+
+/* Estilo para los comentarios cuando se hace clic */
+.filled-comment {
+    color: #00bfff; /* Color azul claro */
+}
