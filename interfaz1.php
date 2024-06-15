@@ -1,35 +1,6 @@
 <?php
 include "conexion.php";
 
-// Si se han enviado datos a través del formulario, procesarlos
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nombres = $_POST['nombre'] ?? null;
-    $apellidos = $_POST['apellido'] ?? null;
-    $edad = $_POST['edad'] ?? null;
-    $direccion = $_POST['direccion'] ?? null;
-    $encargado = $_POST['ne'] ?? null;
-    $tel_encargado = $_POST['numero'] ?? null;
-
-    if ($nombres && $apellidos && $edad && $direccion && $encargado && $tel_encargado) {
-        // Preparar y vincular
-        $stmt = $conn->prepare("INSERT INTO ur (nombres, apellidos, edad, direccion, encargado, tel_encargado) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $nombres, $apellidos, $edad, $direccion, $encargado, $tel_encargado);
-
-        // Ejecutar
-        if ($stmt->execute()) {
-            // Redirigir a listar.php después de un registro exitoso
-            header('Location: listar.php');
-            exit(); // Asegurarse de que el script se detenga después de la redirección
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-
-        // Cerrar la conexión
-        $stmt->close();
-    } else {
-        echo "Por favor, complete todos los campos del formulario.";
-    }
-}
 
 // Mostrar los registros
 $sql = $conn->query("SELECT * FROM ur");
