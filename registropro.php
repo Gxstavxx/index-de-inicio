@@ -1,38 +1,33 @@
 <?php
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  
-    include 'conexion.php'; 
+    include 'conexion.php';
 
-    $tipo = $_POST['tipo'];
     $nombres = $_POST['nombre'];
     $apellidos = $_POST['apellido'];
-    $grado = $_POST['grado'];
-    $carrera = $_POST['carrera'];
+    $grado = $_POST['grado'] ?? null;
+    $carrera = $_POST['carrera'] ?? null;
+    $materia = $_POST['materia'] ?? null;
     $nickname = $_POST['nickname'];
     $correo = $_POST['correo'];
-    $contra = $_POST['contraseña'];
-    $contraseña = md5($_POST['contraseña']);
+    $contraseña = $_POST['contraseña'];
+    $contra = md5('contraseña');
 
-    if ($tipo == "alumno") {
-        // Insertar en la tabla est (estudiantes)
-        $sql = "INSERT INTO est (nombres, apellidos, grado, carrera, nickname, correo, contra, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param("ssssssss", $nombres, $apellidos, $grado, $carrera, $nickname, $correo, $contra, $contraseña);
-            if ($stmt->execute()) {
-                echo "Registro de alumno exitoso!";
-            } else {
-                echo "Error al registrar alumno: " . $stmt->error;
-            }
-            $stmt->close();
+    $sql = "INSERT INTO prof (nombres, apellidos, grado, Carrera, Materia, nickname, correo, contra, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("sssssssss", $nombres, $apellidos, $grado, $carrera, $materia, $nickname, $correo, $contra, $contraseña);
+
+        if ($stmt->execute()) {
+            echo "Registro exitoso!";
         } else {
-            echo "Error al preparar la consulta para alumno: " . $conn->error;
+            echo "Error al registrar: " . $stmt->error;
         }
+        $stmt->close();
+    } else {
+        echo "Error al preparar la consulta: " . $conn->error;
     }
 
-    // Cerrar la conexión
     $conn->close();
 }
-
-header('Location: index.php');
+header('Location:interfaz1.php');
 ?>

@@ -21,14 +21,14 @@
                 
                 <div class="custom-controls-stacked row text-center pb-3">
                     <div class="custom-control custom-radio col-md-4 text-right">
-                        <input id="tipoBusqueda1" name="tipoBusqueda" value="1" type="radio" class="custom-control-input tipoBusqueda" checked="checked">
-                        <label for="tipoBusqueda1" class="custom-control-label">Alumno</label>
+                        <input id="tipoBusqueda2" name="tipoBusqueda" value="2" type="radio" class="custom-control-input tipoBusqueda" checked="checked">
+                        <label for="tipoBusqueda2" class="custom-control-label">Profesor</label>
                     </div>
                 </div>
 
-                <!-- Formulario Alumno -->
-                <form id="formAlumno" action="registro.php" method="post">
-                    <input type="hidden" name="tipo" value="alumno">
+                <!-- Formulario Profesor -->
+                <form id="formProfesor" action="registropro.php" method="post">
+                    <input type="hidden" name="tipo" value="profesor">
                     <div class="input-group mb-3">
                         <input type="text" name="nombre" class="form-control" placeholder="Ingrese sus Nombres" required>
                     </div>
@@ -36,13 +36,16 @@
                         <input type="text" name="apellido" class="form-control" placeholder="Ingrese sus Apellidos" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="grado" class="form-control" placeholder="Carrera" required>
+                        <input type="text" name="grado" class="form-control" placeholder="Grado" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="carrera" class="form-control" placeholder="Ingrese su Carrera" required>
+                        <input type="text" name="carrera" class="form-control" placeholder="Carrera" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Usuario" required onblur="addAlumToNickname(this)">
+                        <input type="text" name="materia" class="form-control" placeholder="Materia" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Usuario" required onblur="addProfToNickname(this)">
                     </div>
                     <div class="input-group mb-3">
                         <input type="email" name="correo" class="form-control" placeholder="Correo" required>
@@ -57,7 +60,7 @@
                     </div>
                 </form>
 
-                <form action="index.php">
+                <form action="interfaz1.php">
                     <div class="col-6">
                         <br><button type="submit" class="btn btn-primary btn-block"><i class="fas fa-arrow-left"></i> Regresar</button>
                         <br>
@@ -69,25 +72,25 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const tipoBusqueda1 = document.getElementById('tipoBusqueda1');
-        const formAlumno = document.getElementById('formAlumno');
+        const tipoBusqueda2 = document.getElementById('tipoBusqueda2');
+        const formProfesor = document.getElementById('formProfesor');
 
-        tipoBusqueda1.addEventListener('change', function() {
-            if (tipoBusqueda1.checked) {
-                formAlumno.style.display = 'block';
+        tipoBusqueda2.addEventListener('change', function() {
+            if (tipoBusqueda2.checked) {
+                formProfesor.style.display = 'block';
             }
         });
     });
 
-    function addAlumToNickname(input) {
+    function addProfToNickname(input) {
         const value = input.value.trim();
         const cursorPosition = input.selectionStart;
-        const lastIndexOfAlum = value.lastIndexOf('-alum');
+        const lastIndexOfProf = value.lastIndexOf('-prof');
 
-        if (lastIndexOfAlum === -1 || cursorPosition <= lastIndexOfAlum) {
-            input.value = value + '-alum';
-        } else if (cursorPosition > lastIndexOfAlum + 5) {
-            input.setSelectionRange(lastIndexOfAlum + 5, lastIndexOfAlum + 5);
+        if (lastIndexOfProf === -1 || cursorPosition <= lastIndexOfProf) {
+            input.value = value + '-prof';
+        } else if (cursorPosition > lastIndexOfProf + 5) {
+            input.setSelectionRange(lastIndexOfProf + 5, lastIndexOfProf + 5);
         }
     }
     </script>
