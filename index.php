@@ -31,7 +31,7 @@
 
                 <label class="form-label" for="usuario" style=" color: white;">Usuario:</label>
                     <div class="input-group mb-3">
-                        <input type="email" name="correo" class="form-control" placeholder="Ingrese su usuario" required>
+                        <input type="text" name="nickname" class="form-control" placeholder="Ingrese su usuario" required>
                     </div>
                     <label class="form-label" style=" color: white;" for="usuario">Contraseña:</label>
                     <div class="input-group mb-3">
