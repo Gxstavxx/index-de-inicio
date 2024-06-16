@@ -25,7 +25,7 @@ include "conexion.php";
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center mb-4">Registros de Estudiantes</h1>
+                <h1 class="text-center mb-4">Registros de Docentes</h1>
                 <a href="registrarpro.php" class="btn btn-primary mb-3">Deseas Registrar un Nuevo Usuario?</a>
                 <div class="card">
                     <div class="card-body">
@@ -35,11 +35,11 @@ include "conexion.php";
                                     <th scope="col">#</th>
                                     <th scope="col">Nombres</th>
                                     <th scope="col">Apellidos</th>
-                                    <th scope="col">Edad</th>
-                                    <th scope="col">Dirección</th>
-                                    <th scope="col">Encargado</th>
-                                    <th scope="col">Tel de Encargado</th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col">Carrera</th>
+                                    <th scope="col">Materia</th>
+                                    <th scope="col">NickName</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Contraseña</th>
                                 </tr>
                             </thead>
                             <tbody>

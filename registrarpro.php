@@ -36,7 +36,7 @@
                         <input type="text" name="apellido" class="form-control" placeholder="Ingrese sus Apellidos" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="grado" class="form-control" placeholder="Ingrese su Grado" required>
+                        <input type="text" name="grado" class="form-control" placeholder="Carrera" required>
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" name="carrera" class="form-control" placeholder="Ingrese su Carrera" required>
