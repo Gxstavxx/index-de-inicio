@@ -33,7 +33,7 @@ $result = $conn->query($query);
                 <h1 class="text-center mb-4">Registros de Docentes</h1>
                 <a href="registrarpro.php" class="btn btn-block btn-outline-info btn-sm">¿Deseas Registrar un Nuevo Docente?</a>
                
-                <a href="index.php" class="btn btn-block btn-outline-danger btn-sm">Cerrar Sesion</a>
+                <a href="cerrar.php" class="btn btn-block btn-outline-danger btn-sm">Cerrar Sesion</a>
                 
                 <div class="card">
 
