@@ -1,0 +1,17 @@
+body.background {
+    background-image: url(gustavo.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#A1{
+    background: rgba(255, 255, 255, 0.199);
+}
+
+body.background2 {
+    background-image: url(registrar.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
