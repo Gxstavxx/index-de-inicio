@@ -35,15 +35,7 @@
                     <div class="input-group mb-3">
                         <input type="text" name="apellido" class="form-control" placeholder="Ingrese sus Apellidos" required>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" name="grado" class="form-control" placeholder="Grado" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="text" name="carrera" class="form-control" placeholder="Carrera" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="text" name="materia" class="form-control" placeholder="Materia" required>
-                    </div>
+                    
                     <div class="input-group mb-3">
                         <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Usuario" required onblur="addProfToNickname(this)">
                     </div>
