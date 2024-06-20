@@ -1,3 +1,61 @@
+<?php
+include "conexion.php";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar'])) {
+    $buscar = $_POST['buscar'];
+    $query = "SELECT id, nombres, apellidos FROM prof WHERE id = ? OR nombres LIKE ?";
+    $stmt = $conn->prepare($query);
+    $likeBuscar = "%$buscar%";
+    $stmt->bind_param("is", $buscar, $likeBuscar);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $data = $result->fetch_assoc();
+        $resultadoBusqueda = '
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resultado de la Búsqueda</h5>
+                    <p class="card-text"><strong>Nombres:</strong> ' . $data['nombres'] . '</p>
+                    <p class="card-text"><strong>Apellidos:</strong> ' . $data['apellidos'] . '</p>
+                </div>
+            </div>';
+    } else {
+        $resultadoBusqueda = '<div class="alert alert-danger" role="alert">Docente no encontrado</div>';
+    }
+    $stmt->close();
+} else {
+    $resultadoBusqueda = '';
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre'])) {
+    $nombres = $_POST['nombre'];
+    $apellidos = $_POST['apellido'];
+    $nickname = $_POST['nickname'];
+    $correo = $_POST['correo'];
+    $contraseña = $_POST['contraseña'];
+    $contra = md5($contraseña);
+
+    $sql = "INSERT INTO prof (nombres, apellidos, nickname, correo, contraseña, contra) VALUES (?, ?, ?, ?, ?, ?)";
+
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("ssssss", $nombres, $apellidos, $nickname, $correo, $contraseña, $contra);
+
+        if ($stmt->execute()) {
+            echo "Registro exitoso!";
+        } else {
+            echo "Error al registrar: " . $stmt->error;
+        }
+        $stmt->close();
+    } else {
+        echo "Error al preparar la consulta: " . $conn->error;
+    }
+
+    $conn->close();
+    header('Location: interfaz1.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +71,7 @@
 <body class="background2">
 
     <center>
-
         <div id="B2" class="card col-sm-3" style="margin-top: 6%;">
-
             <div class="card-body login-card-body">
                 <p class="login-box-msg"><b>ASIGNATURA</b></p>
                 
@@ -27,25 +83,30 @@
                 </div>
 
                 <!-- Formulario Profesor -->
-                <form id="formProfesor" action="registropro.php" method="post">
+                <form id="formBuscarProfesor" action="" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" id="buscar" name="buscar" class="form-control" placeholder="Ingrese el Nombre o Id" required>
+                        <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+                    </div>
+                </form>
+
+                <div id="resultadoBusqueda" class="mb-3"><?= $resultadoBusqueda ?></div>
+
+                <form id="formRegistrarProfesor" action="" method="post">
                     <input type="hidden" name="tipo" value="profesor">
                     <div class="input-group mb-3">
-                        <input type="text" name="nombre" class="form-control" placeholder="Ingreseel Nombre" required>
+                        <input type="text" name="nombre" class="form-control" placeholder="Ingrese el Grado" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="apellido" class="form-control" placeholder="Ingrese el grado" required>
+                        <input type="text" name="apellido" class="form-control" placeholder="Ingrese la Carrera" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="apellido" class="form-control" placeholder="Ingrese la carrera" required>
+                        <input type="text" name="nickname" class="form-control" placeholder="Ingrese la Materia" required>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" name="apellido" class="form-control" placeholder="Ingrese la carrera" required>
-                    </div>
-
-
+                   
                     <div class="row justify-content-center">
                         <div class="col-6">
-                            <button type="submit" class="btn btn-block btn-outline-primary btn-sm">CREAR</button><br>
+                            <button type="submit" class="btn btn-block btn-outline-primary btn-sm">Agregar</button><br>
                         </div>
                     </div>
                 </form>
@@ -63,7 +124,7 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const tipoBusqueda2 = document.getElementById('tipoBusqueda2');
-        const formProfesor = document.getElementById('formProfesor');
+        const formProfesor = document.getElementById('formRegistrarProfesor');
 
         tipoBusqueda2.addEventListener('change', function() {
             if (tipoBusqueda2.checked) {
