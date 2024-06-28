@@ -35,7 +35,7 @@
                         $sql = $conn->query("SELECT * FROM asig WHERE id='$id'");
                         if ($dat = $sql->fetch_object()) {
                         ?>
-                        <form action="edit.php" method="post">
+                        <form action="editasignatura.php" method="post">
                             <!-- Campo oculto para enviar el ID -->
                             <input type="hidden" name="id" value="<?php echo $dat->id; ?>">
                             <input type="hidden" name="tipo" value="asignatura">
