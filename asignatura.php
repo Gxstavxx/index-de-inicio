@@ -62,7 +62,7 @@ $result = $conn->query($query);
                                         <td><?php echo $dat->Carrera; ?></td>
                                         <td><?php echo $dat->Materia; ?></td>
                                         <td>
-                                            <a href="editar.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
+                                            <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
                                             <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></a>                                        </td>
                                     </tr>
                                 <?php
