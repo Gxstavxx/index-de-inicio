@@ -2,22 +2,25 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'conexion.php';
 
-    $nombres = $_POST['nombre'];
-    $apellidos = $_POST['apellido'];
-    $nickname = $_POST['nickname'];
-    $correo = $_POST['correo'];
-    $contraseña = $_POST['contraseña'];
-    $contra = md5($contraseña);
+    $profesor_id = $_POST['profesor_id'];
+    $nombres = $_POST['nombres']; // Ajusta según el nombre del campo en tu formulario
+    $apellidos = $_POST['apellidos']; // Ajusta según el nombre del campo en tu formulario
+    $grado = $_POST['grado'];
+    $carrera = $_POST['carrera'];
+    $materia = $_POST['materia'];
 
-    $sql = "INSERT INTO prof (nombres, apellidos, nickname, correo, contraseña, contra) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO asig (nombres, apellidos, grado, Carrera, Materia) VALUES (?, ?, ?, ?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("ssssss", $nombres, $apellidos, $nickname, $correo, $contraseña, $contra);
+        $stmt->bind_param("sssss", $nombres, $apellidos, $grado, $carrera, $materia);
 
         if ($stmt->execute()) {
-            echo "Registro exitoso!";
+            echo "Asignatura agregada correctamente!";
+            // Redirigir a asignatura.php después de la inserción
+            header('Location: asignatura.php');
+            exit;
         } else {
-            echo "Error al registrar: " . $stmt->error;
+            echo "Error al agregar asignatura: " . $stmt->error;
         }
         $stmt->close();
     } else {
@@ -25,6 +28,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $conn->close();
-    header('Location: interfaz1.php');
 }
 ?>

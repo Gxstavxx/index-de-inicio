@@ -5,16 +5,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
-    $grado = $_POST['grado'];
-    $carrera = $_POST['carrera'];
-    $materia = $_POST['materia'];
     $nickname = $_POST['nickname'];
     $correo = $_POST['correo'];
     $contra = $_POST['contraseña'];
     $contraseña = $_POST['contraseña'];
 
     // Actualizar los datos en la base de datos
-    $sql = "UPDATE prof SET nombres='$nombre', apellidos='$apellido', grado='$grado', carrera='$carrera', materia='$materia', nickname='$nickname', correo='$correo', contraseña='$contra', contraseña='$contraseña' WHERE id='$id'";
+    $sql = "UPDATE prof SET nombres='$nombre', apellidos='$apellido', nickname='$nickname', correo='$correo', contraseña='$contra', contraseña='$contraseña' WHERE id='$id'";
 
     if ($conn->query($sql) === TRUE) {
         header('Location:interfaz1.php');

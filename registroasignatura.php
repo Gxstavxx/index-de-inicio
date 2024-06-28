@@ -16,12 +16,13 @@
         <div id="B2" class="card col-sm-6" style="margin-top: 6%;">
 
             <div class="card-body login-card-body">
-                <p class="login-box-msg"><b>AGREGAR ASIGNATURA</b></p>
-                <form id="formProfesor" action="registropro.php" method="post">
+                <p class="login-box-msg"><b>Agregar Asignatura</b></p>
+
                 <!-- Formulario Buscar Profesor -->
                 <form id="buscarProfesorForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" name="buscar_profesor" class="form-control" placeholder="Buscar por ID, Nombre o Apellido de Profesor" required>
+                        <input type="text" name="buscar_profesor" class="form-control"
+                            placeholder="Buscar por ID, Nombres o Apellidos de Profesor" required>
                         <button type="submit" name="buscar" class="btn btn-primary">Buscar</button>
                     </div>
                 </form>
@@ -54,7 +55,29 @@
                             if ($stmt->num_rows > 0) {
                                 $stmt->bind_result($profesor_id, $nombres, $apellidos);
                                 while ($stmt->fetch()) {
-                                    echo "<p>Profesor encontrado: ID: $profesor_id, Nombre: $nombres, Apellido: $apellidos</p>";
+                                    echo "<p>Profesor encontrado: Nombre: $nombres $apellidos</p>";
+
+                                    // Mostrar el formulario de agregar asignatura
+                                    echo '<form id="formAsignatura" action="asignaregistro.php" method="post">';
+                                    echo '<input type="hidden" id="profesor_id" name="profesor_id" value="' . $profesor_id . '">';
+                                    echo '<input type="hidden" id="nombres" name="nombres" value="' . $nombres . '">';
+                                    echo '<input type="hidden" id="apellidos" name="apellidos" value="' . $apellidos . '">';
+
+                                    echo '<div class="input-group mb-3">';
+                                    echo '<input type="text" name="grado" class="form-control" placeholder="Ingrese el Grado" required>';
+                                    echo '</div>';
+                                    echo '<div class="input-group mb-3">';
+                                    echo '<input type="text" name="carrera" class="form-control" placeholder="Ingrese la Carrera" required>';
+                                    echo '</div>';
+                                    echo '<div class="input-group mb-3">';
+                                    echo '<input type="text" name="materia" class="form-control" placeholder="Ingrese la Materia" required>';
+                                    echo '</div>';
+                                    echo '<div class="row justify-content-center">';
+                                    echo '<div class="col-6">';
+                                    echo '<button type="submit" class="btn btn-block btn-outline-primary btn-sm">AGREGAR</button><br>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '</form>';
                                 }
                             } else {
                                 echo "<p>Profesor no encontrado</p>";
@@ -69,7 +92,8 @@
                 </div>
 
                 <form action="interfaz1.php">
-                    <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-arrow-left"></i> Regresar</button>
+                    <button type="submit" class="btn btn-primary btn-block mt-3"><i class="fas fa-arrow-left"></i>
+                        Regresar</button>
                 </form>
             </div>
         </div>

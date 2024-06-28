@@ -53,24 +53,8 @@
                                     value="<?php echo isset($dat->apellidos) ? htmlspecialchars($dat->apellidos) : ''; ?>"
                                     required>
                             </div>
-                            <div class="mb-3">
-                                <label for="grado" class="form-label">Grado</label>
-                                <input type="text" name="grado" class="form-control" placeholder="Grado"
-                                    value="<?php echo isset($dat->grado) ? htmlspecialchars($dat->grado) : ''; ?>"
-                                    required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="carrera" class="form-label">Carrera</label>
-                                <input type="text" name="carrera" class="form-control" placeholder="Carrera"
-                                    value="<?php echo isset($dat->Carrera) ? htmlspecialchars($dat->Carrera) : ''; ?>"
-                                    required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="materia" class="form-label">Materia</label>
-                                <input type="text" name="materia" class="form-control" placeholder="Materia"
-                                    value="<?php echo isset($dat->Materia) ? htmlspecialchars($dat->Materia) : ''; ?>"
-                                    required>
-                            </div>
+                           
+                        
                             <div class="mb-3">
                                 <label for="nickname" class="form-label">Usuario</label>
                                 <input type="text" name="nickname" id="nickname" class="form-control"
