@@ -37,6 +37,10 @@ $result = $conn->query($query);
                 <div class="card">
                     <div class="card-body">
                     <a href="interfaz1.php" class="btn btn-small btn-danger mb-3"><i class="fas fa-arrow-left"></i> Regresar</a>
+                    <a href="interfaz1.php" class="btn btn-small btn-primary mb-3">
+    <i class="fas fa-edit"></i> Materia
+</a>
+
                     <table class="table table-striped">
                             <thead>
                                 <tr>

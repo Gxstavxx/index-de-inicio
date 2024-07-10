@@ -41,6 +41,7 @@ $result = $conn->query($query);
                             $dat = $result->fetch_object(); // Obtener un objeto para el ID
                         ?>
                             <a href="asignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-success mb-3"><i class="fas fa-edit"></i> Asignatura</a>
+                            
                         <?php
                             $result->data_seek(0); // Reiniciar el puntero del conjunto de resultados
                         }
