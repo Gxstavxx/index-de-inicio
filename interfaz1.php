@@ -40,7 +40,8 @@ $result = $conn->query($query);
                         if ($result && $result->num_rows > 0) {
                             $dat = $result->fetch_object(); // Obtener un objeto para el ID
                         ?>
-                            <a href="asignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-success mb-3"><i class="fas fa-edit"></i> Asignatura</a>
+                                            <a href="interfazprincipal.php" class="btn btn-small btn-danger mb-3">  <i class="fas fa-arrow-left"></i> Regresar</a>
+
                             
                         <?php
                             $result->data_seek(0); // Reiniciar el puntero del conjunto de resultados

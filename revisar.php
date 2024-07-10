@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar si es un administrador válido
     if (verificarCredenciales($nickname, $contraseña, $admins)) {
         $_SESSION['user'] = array("nickname" => $nickname); // Guardar el usuario en la sesión
-        header("Location: interfaz1.php"); // Redirigir a la interfaz de administrador
+        header("Location: interfazprincipal.php"); // Redirigir a la interfaz de administrador
         exit();
     } else {
         // Si no es válido, redirigir con mensaje de error
