@@ -2,17 +2,14 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'conexion.php';
 
-    $nombres = $_POST['nombre'];
-    $apellidos = $_POST['apellido'];
-    $nickname = $_POST['nickname'];
-    $correo = $_POST['correo'];
-    $contraseña = $_POST['contraseña'];
-    $contra = md5($contraseña);
+    $carrera = $_POST['carrera'];
+    $grado = $_POST['grado'];
+    $materia = $_POST['materia'];
 
-    $sql = "INSERT INTO prof (nombres, apellidos, nickname, correo, contraseña, contra) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO mat (grado, Carrera, Materia) VALUES (?, ?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("ssssss", $nombres, $apellidos, $nickname, $correo, $contraseña, $contra);
+        $stmt->bind_param("sss", $grado, $carrera, $materia);
 
         if ($stmt->execute()) {
             echo "Registro exitoso!";
@@ -25,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $conn->close();
-    header('Location: interfaz1.php');
+    header('Location: asignatura.php');
+    exit();
 }
 ?>

@@ -29,7 +29,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="mb-4 text-center">Editar Asignatura</h2>
-                        <form action="editasignatura.php" method="post"><div class="mb-3">
+                        <form action="mat.php" method="post"><div class="mb-3">
                         <div class="mb-3">
     <label for="carrera" class="form-label">Carrera</label>
     <input type="text" name="carrera" class="form-control" placeholder="Ingrese la Carrera" required>
@@ -42,7 +42,7 @@
 
 <div class="mb-3">
     <label for="materia" class="form-label">Materia</label>
-    <input type="text" name="grado" class="form-control" placeholder="Ingrese la Materia" required>
+    <input type="text" name="materia" class="form-control" placeholder="Ingrese la Materia" required>
 </div>
                             <center>
                                 <div class="row justify-content-center">
