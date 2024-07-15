@@ -31,7 +31,7 @@ $result = $conn->query($query);
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center mb-4">Lista de Asignaturas</h1>
-                <a href="registroasignatura.php" class="btn btn-block btn-outline-info btn-sm">¿Deseas agregar una Asignatura a un Docente?</a>
+                <a href="registroasignatura.php" class="btn btn-block btn-outline-info btn-sm">Agregar Asignatura</a>
                 <a href="cerrar.php" class="btn btn-block btn-outline-danger btn-sm">Cerrar Sesion</a>
 
                 <div class="card">

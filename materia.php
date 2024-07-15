@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Editar Asignatura</title>
+    <title>Materia </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
@@ -28,17 +28,19 @@
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="mb-4 text-center">Editar Asignatura</h2>
+                        <h2 class="mb-4 text-center">Agregar Materia a los Grados</h2>
                         <form action="mat.php" method="post"><div class="mb-3">
+                        <div class="mb-3">
+    <label for="grado" class="form-label"></label>
+    <input type="text" name="grado" class="form-control" placeholder="Buscar Grado" required>
+</div>
+                      
                         <div class="mb-3">
     <label for="carrera" class="form-label">Carrera</label>
     <input type="text" name="carrera" class="form-control" placeholder="Ingrese la Carrera" required>
 </div>
 
-<div class="mb-3">
-    <label for="grado" class="form-label">Grado</label>
-    <input type="text" name="grado" class="form-control" placeholder="Ingrese el Grado" required>
-</div>
+
 
 <div class="mb-3">
     <label for="materia" class="form-label">Materia</label>

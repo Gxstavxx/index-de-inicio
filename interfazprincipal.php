@@ -84,7 +84,7 @@
             <div class="small-box bg-warning">
                 <div class="inner">
                     <h3></h3>
-                    <p>Deseas Agregar Asignatura a un Docente?</p>
+                    <p>Agregar Materia a los Grados</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-person-add"></i>
@@ -96,13 +96,13 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>65</h3>
-                    <p>Unique Visitors</p>
+                    <h3></h3>
+                    <p>Asignar Grados a los Docentes</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">ir <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
