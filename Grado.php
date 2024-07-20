@@ -1,9 +1,25 @@
 <?php
 include "conexion.php";
 
-// Realizar la consulta SQL
-$query = "SELECT id, carrera,descripcion FROM Carrera"; // Ajusta según la estructura de tu tabla
+// Obtener el id de la carrera seleccionada desde la URL
+$carrera_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
+// Inicializar el nombre de la carrera
+$carrera_nombre = "";
+
+if ($carrera_id > 0) {
+    // Realizar la consulta para obtener el nombre de la carrera
+    $query = "SELECT carrera FROM Carrera WHERE id = $carrera_id";
+    $result = $conn->query($query);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $carrera_nombre = $row['carrera'];
+    }
+    $result->close();
+}
+
+// Realizar la consulta SQL para obtener los grados de la carrera
+$query = "SELECT id, carrera, descripcion FROM Carrera"; // Ajusta según la estructura de tu tabla
 $result = $conn->query($query);
 ?>
 
@@ -12,7 +28,7 @@ $result = $conn->query($query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carreras</title>
+    <title>Grado</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -32,19 +48,19 @@ $result = $conn->query($query);
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center mb-4">REGISTRO DE CARRERAS</h1>
-                <a href="registroasignatura.php" class="btn btn-block btn-outline-info btn-sm">Agregar Carrera</a>
+                <h1 class="text-center mb-4">Grados sobre la Carrera <?php echo htmlspecialchars($carrera_nombre); ?></h1>
+                <a href="registroasignatura.php" class="btn btn-block btn-outline-info btn-sm">Agregar Grado</a>
 
                 <div class="card">
                     <div class="card-body">
-                        <a href="interfazprincipal.php" class="btn btn-small btn-danger mb-3"><i class="fas fa-arrow-left"></i> Regresar</a>
+                        <a href="asignatura.php" class="btn btn-small btn-danger mb-3"><i class="fas fa-arrow-left"></i> Regresar</a>
                         <a href="cerrar.php" class="btn btn-small btn-danger mb-3">Cerrar Sesion</a>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Nombre de la Carrera</th>
-                                    <th scope="col">Descripcion de la Carrera</th>
+                                    <th scope="col">Grado</th>
+                                    <th scope="col">Descripcion del Grado</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -58,7 +74,7 @@ $result = $conn->query($query);
                                         <td><?php echo $dat->carrera; ?></td>
                                         <td><?php echo $dat->descripcion; ?></td>
                                         <td class="actions">
-                                            <a href="registroasignatura.php" class="btn btn-small btn-primary"><i class="fas fa-edit"></i> Grados</a>
+                                            <a href="registroasignatura.php" class="btn btn-small btn-primary"><i class="fas fa-edit"></i> Cursos</a>
                                             <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
                                             <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></a>
                                         </td>
