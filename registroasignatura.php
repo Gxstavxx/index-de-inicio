@@ -36,8 +36,8 @@
     <input type="text" name="carrera" class="form-control" placeholder="Ingrese la carrera" required>
 </div>
 <div class="mb-3">
-    <label for="grado" class="form-label">Grado</label>
-    <input type="text" name="grado" class="form-control" placeholder="Ingrese el Grado" required>
+    <label for="descripcion" class="form-label">Descripcion</label>
+    <input type="text" name="descripcion" class="form-control" placeholder="Ingrese la descripcion de la Carrera" required>
 </div>
 
 
@@ -51,7 +51,7 @@
                             </center>
                         </form>
                         <center>
-                            <form action="interfaz1.php">
+                            <form action="asignatura.php">
                                 <div class="col-6">
                                     <center>
                                         <br><button type="submit" class="btn btn-primary btn-block"><i

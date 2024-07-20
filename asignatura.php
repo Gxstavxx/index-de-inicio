@@ -5,7 +5,6 @@ include "conexion.php";
 $query = "SELECT id, nombres, apellidos, grado, Carrera, Materia FROM asig"; // Ajusta según la estructura de tu tabla
 
 $result = $conn->query($query);
-
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +12,7 @@ $result = $conn->query($query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interfaz Administrador</title>
+    <title>Carreras</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -24,32 +23,28 @@ $result = $conn->query($query);
         .container {
             padding-top: 50px;
         }
+        .actions a {
+            margin-bottom: 3px; /* Ajusta el margen según sea necesario */
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center mb-4">Lista de Asignaturas</h1>
-                <a href="registroasignatura.php" class="btn btn-block btn-outline-info btn-sm">Agregar Asignatura</a>
-                <a href="cerrar.php" class="btn btn-block btn-outline-danger btn-sm">Cerrar Sesion</a>
+                <h1 class="text-center mb-4">CARRERA</h1>
+                <a href="registroasignatura.php" class="btn btn-block btn-outline-info btn-sm">Agregar Carrera</a>
 
                 <div class="card">
                     <div class="card-body">
-                    <a href="interfazprincipal.php" class="btn btn-small btn-danger mb-3">  <i class="fas fa-arrow-left"></i> Regresar</a>
-                    <a href="materia.php" class="btn btn-small btn-primary mb-3">
-    <i class="fas fa-edit"></i> Materia
-</a>
-
-                    <table class="table table-striped">
+                        <a href="interfazprincipal.php" class="btn btn-small btn-danger mb-3"><i class="fas fa-arrow-left"></i> Regresar</a>
+                        <a href="cerrar.php" class="btn btn-small btn-danger mb-3">Cerrar Sesion</a>
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Nombres</th>
-                                    <th scope="col">Apellidos</th>
-                                    <th scope="col">Grado</th>
-                                    <th scope="col">Carrera</th>
-                                    <th scope="col">Materia</th>
+                                    <th scope="col">Nombre de la Carrera</th>
+                                    <th scope="col">Descripcion de la Carrera</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -62,12 +57,12 @@ $result = $conn->query($query);
                                         <td><?php echo $dat->id; ?></td>
                                         <td><?php echo $dat->nombres; ?></td>
                                         <td><?php echo $dat->apellidos; ?></td>
-                                        <td><?php echo $dat->grado; ?></td>
-                                        <td><?php echo $dat->Carrera; ?></td>
-                                        <td><?php echo $dat->Materia; ?></td>
-                                        <td>
+                                        <td class="actions">
+                                            <a href="registroasignatura.php" class="btn btn-small btn-primary"><i class="fas fa-edit"></i> Grados</a>
+                                            <a href="materia.php" class="btn btn-small btn-primary"><i class="fas fa-edit"></i> Alumnos</a>
                                             <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
-                                            <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></a>                                        </td>
+                                            <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
                                     </tr>
                                 <?php
                                     }

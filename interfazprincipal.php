@@ -71,7 +71,7 @@
             <div  class="small-box bg-success">
                <div class="inner" style="font-size: 10px">
                     <h3><sup ></sup></h3>
-                    <p>Agregar Asignatura</p>
+                    <p>Carreras</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
