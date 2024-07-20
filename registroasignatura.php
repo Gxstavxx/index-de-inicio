@@ -28,12 +28,12 @@
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="mb-4 text-center">Agregar Asignatura</h2>
+                        <h2 class="mb-4 text-center">Registro de la Carrera</h2>
                         <form action="mat.php" method="post"><div class="mb-3">
             
                         <div class="mb-3">
     <label for="carrera" class="form-label">Agregar Carrera</label>
-    <input type="text" name="carrera" class="form-control" placeholder="Ingrese la carrera" required>
+    <input type="text" name="carrera" class="form-control" placeholder="Ingrese el nombre la carrera" required>
 </div>
 <div class="mb-3">
     <label for="descripcion" class="form-label">Descripcion</label>
