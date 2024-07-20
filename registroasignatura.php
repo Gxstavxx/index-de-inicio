@@ -29,7 +29,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="mb-4 text-center">Registro de la Carrera</h2>
-                        <form action="mat.php" method="post"><div class="mb-3">
+                        <form action="intcarrera.php" method="post"><div class="mb-3">
             
                         <div class="mb-3">
     <label for="carrera" class="form-label">Agregar Carrera</label>
