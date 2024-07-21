@@ -79,6 +79,33 @@
                 <a href="asignatura.php" class="small-box-footer">ir <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        <div class="col-lg-3 col-6">
+            <div  class="small-box bg-success">
+               <div class="inner" style="font-size: 10px">
+                    <h3><sup ></sup></h3>
+                    <p>Grados</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="Grado.php" class="small-box-footer">ir <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        </div>
+        <div class="col-lg-3 col-6">
+            <div  class="small-box bg-success">
+               <div class="inner" style="font-size: 10px">
+                    <h3><sup ></sup></h3>
+                    <p>Materias</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="Cursos.php" class="small-box-footer">ir <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
 
         
      

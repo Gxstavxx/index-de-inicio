@@ -42,7 +42,6 @@ $result = $conn->query($query);
                     <div class="card-body">
                         <div class="btn-group btn-group-sm mb-3" role="group">
                             <a href="interfazprincipal.php" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Regresar</a>
-                            <a href="Grado.php" class="btn btn-primary"><i class="fas fa-edit"></i> Grados</a>
                             <a href="cerrar.php" class="btn btn-danger">Cerrar Sesión</a>
                         </div>
                         <table class="table table-striped">
