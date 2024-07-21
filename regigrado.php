@@ -34,12 +34,12 @@
                         <form action="intcarrera.php" method="post"><div class="mb-3">
             
                         <div class="mb-3">
-    <label for="carrera" class="form-label">Agregar Carrera</label>
-    <input type="text" name="carrera" class="form-control" placeholder="Ingrese el nombre la carrera" required>
+    <label for="grado" class="form-label">Agregar Grado</label>
+    <input type="text" name="grado" class="form-control" placeholder="Ingrese el grado" required>
 </div>
 <div class="mb-3">
-    <label for="descripcion" class="form-label">Descripcion</label>
-    <input type="text" name="descripcion" class="form-control" placeholder="Ingrese la descripcion de la Carrera" required>
+    <label for="descri" class="form-label">Descripcion</label>
+    <input type="text" name="descri" class="form-control" placeholder="Ingrese la descripcion del grado" required>
 </div>
 
 
@@ -53,7 +53,7 @@
                             </center>
                         </form>
                         <center>
-                            <form action="asignatura.php">
+                            <form action="grado.php">
                                 <div class="col-6">
                                     <center>
                                         <br><button type="submit" class="btn btn-primary btn-block"><i

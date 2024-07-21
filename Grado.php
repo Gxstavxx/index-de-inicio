@@ -49,7 +49,7 @@ $result = $conn->query($query);
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center mb-4">Grados sobre la Carrera <?php echo htmlspecialchars($carrera_nombre); ?></h1>
-                <a href="registroasignatura.php" class="btn btn-block btn-outline-info btn-sm">Agregar Grado</a>
+                <a href="regigrado.php" class="btn btn-block btn-outline-info btn-sm">Agregar Grado</a>
 
                 <div class="card">
                     <div class="card-body">
