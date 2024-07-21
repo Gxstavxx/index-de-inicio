@@ -3,20 +3,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'conexion.php';
 
     $grado = $_POST['grado'];
-    $descripcion = $_POST['descri'];
+    $carrera_id = $_POST['selectcarrera']; // Obtiene el ID de la carrera seleccionada
 
     // Verificar si el grado ya existe en la tabla Grado
-    $sql_check = "SELECT id FROM Grado WHERE grado = ? AND descripcion = ?";
+    $sql_check = "SELECT id FROM Grado WHERE grado = ? AND carreraselec = ?";
     if ($stmt_check = $conn->prepare($sql_check)) {
-        $stmt_check->bind_param("ss", $grado, $descripcion);
+        $stmt_check->bind_param("ss", $grado, $carrera_id);
         $stmt_check->execute();
         $stmt_check->store_result();
 
         if ($stmt_check->num_rows > 0) {
             // El grado ya existe, actualizamos el registro
-            $sql_update = "UPDATE Grado SET descripcion = ? WHERE grado = ?";
+            $sql_update = "UPDATE Grado SET carreraselec = ? WHERE grado = ?";
             if ($stmt_update = $conn->prepare($sql_update)) {
-                $stmt_update->bind_param("ss", $descripcion, $grado);
+                $stmt_update->bind_param("ss", $carrera_id, $grado);
                 if ($stmt_update->execute()) {
                     echo "Actualización de grado exitosa!";
                 } else {
@@ -28,9 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             // El grado no existe, insertamos un nuevo registro
-            $sql_insert = "INSERT INTO Grado (grado, descripcion) VALUES (?, ?)";
+            $sql_insert = "INSERT INTO Grado (grado, carreraselec) VALUES (?, ?)";
             if ($stmt_insert = $conn->prepare($sql_insert)) {
-                $stmt_insert->bind_param("ss", $grado, $descripcion);
+                $stmt_insert->bind_param("ss", $grado, $carrera_id);
                 if ($stmt_insert->execute()) {
                     echo "Registro de grado exitoso!";
                 } else {

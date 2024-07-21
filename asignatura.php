@@ -23,11 +23,9 @@ $result = $conn->query($query);
         .container {
             padding-top: 50px;
         }
-        .actions a {
-            margin-bottom: 3px; /* Ajusta el margen según sea necesario */
-        }
-        .btn-group-sm > .btn {
-            width: 100px; /* Ajusta este valor según sea necesario para igualar los tamaños */
+        .btn-group .form-control {
+            margin-left: 10px;
+            width: 600px; /* Ajusta este valor según sea necesario */
         }
     </style>
 </head>
@@ -43,6 +41,8 @@ $result = $conn->query($query);
                         <div class="btn-group btn-group-sm mb-3" role="group">
                             <a href="interfazprincipal.php" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Regresar</a>
                             <a href="cerrar.php" class="btn btn-danger">Cerrar Sesión</a>
+                            <!-- Campo de búsqueda -->
+                            <input type="text" id="search" class="form-control" placeholder="Buscar por nombre de carrera...">
                         </div>
                         <table class="table table-striped">
                             <thead>
@@ -53,7 +53,7 @@ $result = $conn->query($query);
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="table-body">
                                 <?php
                                 if ($result && $result->num_rows > 0) {
                                     while ($dat = $result->fetch_object()) {
@@ -85,6 +85,22 @@ $result = $conn->query($query);
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('search').addEventListener('keyup', function() {
+            var filter = this.value.toLowerCase();
+            var rows = document.querySelectorAll('#table-body tr');
+
+            rows.forEach(function(row) {
+                var carrera = row.cells[1].textContent.toLowerCase();
+
+                if (carrera.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 

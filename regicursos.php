@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>REGISTRO DE GRADO</title>
+    <title>REGISTRO DE CURSO</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
@@ -23,18 +23,54 @@
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="mb-4 text-center">Registro de Cursos</h2>
+                        <h2 class="mb-4 text-center">Registro de Curso</h2>
                         <form action="intcursos.php" method="post">
-                            <!-- Campo oculto para ID de Carrera -->
-                            <input type="hidden" name="carrera_id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>">
-
                             <div class="mb-3">
                                 <label for="curso" class="form-label">Agregar Curso</label>
                                 <input type="text" name="curso" class="form-control" placeholder="Ingrese el curso" required>
                             </div>
+
                             <div class="mb-3">
-                                <label for="des" class="form-label">Descripcion</label>
-                                <input type="text" name="desc" class="form-control" placeholder="Ingrese la descripcion del grado" required>
+                                <label for="carrera" class="form-label">Para qué Carrera</label>
+                                <select name="carrera" class="form-select" required>
+                                    <option value="">Seleccione una carrera</option>
+                                    <?php
+                                    include 'conexion.php';
+                                    $query_carrera = "SELECT id, Carrera FROM Carrera";
+                                    $result_carrera = $conn->query($query_carrera);
+                                    if ($result_carrera && $result_carrera->num_rows > 0) {
+                                        while ($dat_carrera = $result_carrera->fetch_object()) {
+                                            echo "<option value='{$dat_carrera->id}'>{$dat_carrera->Carrera}</option>";
+                                        }
+                                    }
+                                    $result_carrera->close();
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="grado" class="form-label">Para qué Grado</label>
+                                <select name="grado" class="form-select" required>
+                                    <option value="">Seleccione un grado</option>
+                                    <?php
+                                    include 'conexion.php';
+                                    $query_grado = "SELECT DISTINCT grado, id FROM Grado ORDER BY grado";
+                                    $result_grado = $conn->query($query_grado);
+
+                                    // Filtrar duplicados en PHP
+                                    $seen = array();
+                                    if ($result_grado && $result_grado->num_rows > 0) {
+                                        while ($dat_grado = $result_grado->fetch_object()) {
+                                            if (!in_array($dat_grado->grado, $seen)) {
+                                                $seen[] = $dat_grado->grado;
+                                                echo "<option value='{$dat_grado->id}'>{$dat_grado->grado}</option>";
+                                            }
+                                        }
+                                    }
+                                    $result_grado->close();
+                                    $conn->close();
+                                    ?>
+                                </select>
                             </div>
 
                             <center>

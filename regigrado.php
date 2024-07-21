@@ -1,3 +1,11 @@
+<?php
+include "conexion.php";
+
+// Consulta para obtener todas las carreras para el campo de selección
+$query = "SELECT id, Carrera FROM Carrera";
+$result = $conn->query($query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +22,10 @@
             margin-top: 6%;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-select {
+            width: 100%;
+            max-width: 300px;
         }
     </style>
 </head>
@@ -33,8 +45,18 @@
                                 <input type="text" name="grado" class="form-control" placeholder="Ingrese el grado" required>
                             </div>
                             <div class="mb-3">
-                                <label for="descri" class="form-label">Descripcion</label>
-                                <input type="text" name="descri" class="form-control" placeholder="Ingrese la descripcion del grado" required>
+                                <label for="selectcarrera" class="form-label">Para qué Carrera</label>
+                                <!-- Campo de selección con lista de carreras -->
+                                <select id="selectcarrera" name="selectcarrera" class="form-select" required>
+                                    <option value="">Seleccione una carrera</option>
+                                    <?php
+                                    if ($result && $result->num_rows > 0) {
+                                        while ($dat = $result->fetch_object()) {
+                                            echo "<option value='{$dat->id}'>{$dat->Carrera}</option>";
+                                        }
+                                    }
+                                    ?>
+                                </select>
                             </div>
 
                             <center>
@@ -62,3 +84,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<?php $conn->close(); ?>
