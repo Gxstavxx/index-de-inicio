@@ -2,7 +2,7 @@
 include "conexion.php";
 
 // Realizar la consulta SQL
-$query = "SELECT id, carrera,descripcion FROM Carrera"; // Ajusta según la estructura de tu tabla
+$query = "SELECT id, carrera, descripcion FROM Carrera"; // Ajusta según la estructura de tu tabla
 
 $result = $conn->query($query);
 ?>
@@ -58,7 +58,7 @@ $result = $conn->query($query);
                                         <td><?php echo $dat->carrera; ?></td>
                                         <td><?php echo $dat->descripcion; ?></td>
                                         <td class="actions">
-                                            <a href="Grado.php" class="btn btn-small btn-primary"><i class="fas fa-edit"></i> Grados</a>
+                                            <a href="Grado.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-primary"><i class="fas fa-edit"></i> Grados</a>
                                             <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
                                             <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></a>
                                         </td>
