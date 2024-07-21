@@ -2,7 +2,7 @@
 include "conexion.php";
 
 // Consultar los grados
-$query = "SELECT id, Materia, descripcion FROM Curso"; // Ajusta según la estructura de tu tabla
+$query = "SELECT id, Docente,Materia, Descripcion FROM CursoAsignado"; // Ajusta según la estructura de tu tabla
 $result = $conn->query($query);
 ?>
 
@@ -42,8 +42,8 @@ $result = $conn->query($query);
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center mb-4">Cursos sobre la carrera</h1>
-                <a href="regicursos.php" class="btn btn-block btn-outline-info btn-sm">Agregar Curso</a>
+                <h1 class="text-center mb-4">Asignar Profesor al Curso</h1>
+                <a href="regiasignaprof.php" class="btn btn-block btn-outline-info btn-sm">Asignar Profesor</a>
 
                 <div class="card">
                     <div class="card-body">
@@ -53,8 +53,9 @@ $result = $conn->query($query);
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Profesor</th>
                                     <th scope="col">Materia</th>
-                                    <th scope="col">Descripcion de Curso</th>
+                                    <th scope="col">Descripcion de Materia</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -65,10 +66,10 @@ $result = $conn->query($query);
                                 ?>
                                     <tr>
                                         <td><?php echo $dat->id; ?></td>
+                                        <td><?php echo $dat->Docente; ?></td>
                                         <td><?php echo $dat->Materia; ?></td>
-                                        <td><?php echo $dat->descripcion; ?></td>
+                                        <td><?php echo $dat->Descripcion; ?></td>
                                         <td class="actions">
-                                            <a href="registroasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-professor"><i class="fas fa-chalkboard-teacher"></i></a>
                                             <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
                                             <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></a>
                                         </td>
