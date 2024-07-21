@@ -2,7 +2,7 @@
 include "conexion.php";
 
 // Realizar la consulta SQL
-$query = "SELECT id, nombres, apellidos, nickname, correo, contraseña FROM prof"; // Ajusta según la estructura de tu tabla
+$query = "SELECT id, nombres, apellidos,profesion, nickname, correo, contraseña FROM prof"; // Ajusta según la estructura de tu tabla
 
 $result = $conn->query($query);
 
@@ -53,6 +53,7 @@ $result = $conn->query($query);
                                     <th scope="col">#</th>
                                     <th scope="col">Nombres</th>
                                     <th scope="col">Apellidos</th>
+                                    <th scope="col">Profesion</th>
                                     <th scope="col">NickName</th>
                                     <th scope="col">Correo</th>
                                     <th scope="col">Contraseña</th>
@@ -68,6 +69,7 @@ $result = $conn->query($query);
                                         <td><?php echo $dat->id; ?></td>
                                         <td><?php echo $dat->nombres; ?></td>
                                         <td><?php echo $dat->apellidos; ?></td>
+                                        <td><?php echo $dat->profesion; ?></td>
                                         <td><?php echo $dat->nickname; ?></td>
                                         <td><?php echo $dat->correo; ?></td>
                                         <td><?php echo $dat->contraseña; ?></td>

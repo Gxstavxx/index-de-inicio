@@ -17,7 +17,7 @@
         <div id="B2" class="card col-sm-3" style="margin-top: 6%;">
 
             <div class="card-body login-card-body">
-                <p class="login-box-msg"><b>CREAR CUENTA</b></p>
+                <p class="login-box-msg"><b>Registro de Profesor</b></p>
                 
                 <div class="custom-controls-stacked row text-center pb-3">
                     <div class="custom-control custom-radio col-md-4 text-right">
@@ -35,7 +35,9 @@
                     <div class="input-group mb-3">
                         <input type="text" name="apellido" class="form-control" placeholder="Ingrese sus Apellidos" required>
                     </div>
-                    
+                    <div class="input-group mb-3">
+                        <input type="text" name="profesion" class="form-control" placeholder="Ingrese su Profesion" required>
+                    </div>
                     <div class="input-group mb-3">
                         <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Usuario" required onblur="addProfToNickname(this)">
                     </div>
@@ -47,7 +49,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-6">
-                            <button type="submit" class="btn btn-block btn-outline-primary btn-sm">CREAR</button><br>
+                            <button type="submit" class="btn btn-block btn-outline-primary btn-sm">Guardar</button><br>
                         </div>
                     </div>
                 </form>
