@@ -1,8 +1,7 @@
 <?php
 include "conexion.php";
 
-
-$query = "SELECT id, carrera,descripcion FROM Carrera"; // Ajusta según la estructura de tu tabla
+$query = "SELECT id, carrera, descripcion FROM Carrera"; // Ajusta según la estructura de tu tabla
 
 // Realizar la consulta SQL para obtener los grados de la carrera
 $query = "SELECT id, grado, descripcion FROM Grado"; // Ajusta según la estructura de tu tabla
@@ -28,25 +27,31 @@ $result = $conn->query($query);
         .actions a {
             margin-bottom: 3px; /* Ajusta el margen según sea necesario */
         }
+        .btn-group-sm > .btn {
+            width: 100px; /* Ajusta este valor según sea necesario para igualar los tamaños */
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center mb-4">Grados sobre la Carrera </h1>
+                <h1 class="text-center mb-4">Grados sobre la Carrera</h1>
                 <a href="regigrado.php" class="btn btn-block btn-outline-info btn-sm">Agregar Grado</a>
 
                 <div class="card">
                     <div class="card-body">
-                        <a href="asignatura.php" class="btn btn-small btn-danger mb-3"><i class="fas fa-arrow-left"></i> Regresar</a>
-                        <a href="cerrar.php" class="btn btn-small btn-danger mb-3">Cerrar Sesion</a>
+                        <div class="btn-group btn-group-sm mb-3" role="group">
+                            <a href="asignatura.php" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Regresar</a>
+                            <a href="Cursos.php" class="btn btn-primary"><i class="fas fa-edit"></i> Cursos</a>
+                            <a href="cerrar.php" class="btn btn-danger">Cerrar Sesión</a>
+                        </div>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Grado</th>
-                                    <th scope="col">Descripcion del Grado</th>
+                                    <th scope="col">Descripción del Grado</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -60,7 +65,6 @@ $result = $conn->query($query);
                                         <td><?php echo $dat->grado; ?></td>
                                         <td><?php echo $dat->descripcion; ?></td>
                                         <td class="actions">
-                                            <a href="Cursos.php" class="btn btn-small btn-primary"><i class="fas fa-edit"></i> Cursos</a>
                                             <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
                                             <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></a>
                                         </td>
@@ -69,7 +73,7 @@ $result = $conn->query($query);
                                     }
                                     $result->close(); // Liberar el conjunto de resultados
                                 } else {
-                                    echo "<tr><td colspan='7'>No hay registros encontrados</td></tr>";
+                                    echo "<tr><td colspan='4'>No hay registros encontrados</td></tr>";
                                 }
                                 ?>
                             </tbody>

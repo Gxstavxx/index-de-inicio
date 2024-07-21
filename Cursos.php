@@ -36,6 +36,9 @@ $result = $conn->query($query);
             background-color: green; /* Color de fondo verde */
             font-size: 1.1rem; /* Tamaño del ícono */
         }
+        .btn-group-sm > .btn {
+            width: 100px; /* Ajusta este valor según sea necesario para igualar los tamaños */
+        }
     </style>
 </head>
 <body>
@@ -47,14 +50,16 @@ $result = $conn->query($query);
 
                 <div class="card">
                     <div class="card-body">
-                        <a href="asignatura.php" class="btn btn-small btn-danger mb-3"><i class="fas fa-arrow-left"></i> Regresar</a>
-                        <a href="cerrar.php" class="btn btn-small btn-danger mb-3">Cerrar Sesion</a>
+                        <div class="btn-group btn-group-sm mb-3" role="group">
+                            <a href="asignatura.php" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Regresar</a>
+                            <a href="cerrar.php" class="btn btn-danger">Cerrar Sesión</a>
+                        </div>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Materia</th>
-                                    <th scope="col">Descripcion de Curso</th>
+                                    <th scope="col">Descripción de Curso</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -77,7 +82,7 @@ $result = $conn->query($query);
                                     }
                                     $result->close(); // Liberar el conjunto de resultados
                                 } else {
-                                    echo "<tr><td colspan='7'>No hay registros encontrados</td></tr>";
+                                    echo "<tr><td colspan='4'>No hay registros encontrados</td></tr>";
                                 }
                                 ?>
                             </tbody>
