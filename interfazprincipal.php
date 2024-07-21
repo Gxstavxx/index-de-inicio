@@ -7,46 +7,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        .small-box {
-            border-radius: 8px;
-            position: relative;
-            display: block;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        .card {
+            margin-bottom: 30px;
         }
-        .small-box .inner {
-            padding: 10px;
+        .progress {
+            height: 5px; /* Hacer la barra de progreso más delgada */
         }
-        .small-box h3 {
-            font-size: 2.2rem;
-            font-weight: bold;
-            margin: 0;
-            padding: 0;
+        .progress-bar {
+            background-color: #007bff; /* Cambiar el color de la barra de progreso */
         }
-        .small-box p {
-            font-size: 1.1rem;
+        .btn-circle {
+            display: flex;
+            align-items: center;
         }
-        .small-box .icon {
-            position: absolute;
-            top: -10px;
-            right: 10px;
-            z-index: 0;
-            font-size: 4rem;
-            color: rgba(0,0,0,0.15);
-        }
-        .small-box-footer {
-            position: relative;
-            text-align: center;
-            padding: 5px 0;
-            color: #fff;
-            display: block;
-            z-index: 10;
-            background: rgba(0,0,0,0.1);
-            text-decoration: none;
-        }
-        .small-box-footer:hover {
-            color: #fff;
-            background: rgba(0,0,0,0.15);
+        .btn-circle i {
+            margin-right: 5px;
         }
     </style>
 </head>
@@ -54,64 +29,112 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-lg-3 col-6">
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3></h3>
-                    <p>Registro de Docentes</p>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="card-title m-0"><span>Registro de Docentes</span></h4>
+                            <small class="text-muted"></small>
+                        </div>
+                    </div>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-bag"></i>
+                <div class="progress rounded-0">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <a href="interfaz1.php" class="small-box-footer">ir <i class="fas fa-arrow-circle-right"></i></a>
+                <div style="margin: 6px 6px 6px 80%;" id="divBtnVerCursos4117">
+                    <a href="interfaz1.php" class="btn btn-info btn-circle">
+                        <i class="material-icons">ir</i> 
+                    </a>
+                </div>
             </div>
         </div>
 
-        <div class="col-lg-3 col-6">
-            <div  class="small-box bg-success">
-               <div class="inner" style="font-size: 10px">
-                    <h3><sup ></sup></h3>
-                    <p>Carreras</p>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="card-title m-0"><span>Carreras</span></h4>
+                            <small class="text-muted"></small>
+                        </div>
+                    </div>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
+                <div class="progress rounded-0">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <a href="asignatura.php" class="small-box-footer">ir <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div  class="small-box bg-success">
-               <div class="inner" style="font-size: 10px">
-                    <h3><sup ></sup></h3>
-                    <p>Grados</p>
+                <div style="margin: 6px 6px 6px 80%;" id="divBtnVerCursos4117">
+                    <a href="asignatura.php" class="btn btn-info btn-circle">
+                        <i class="material-icons">ir</i> 
+                    </a>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
-                </div>
-                <a href="Grado.php" class="small-box-footer">ir <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="card-title m-0"><span>Grados</span></h4>
+                            <small class="text-muted"></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress rounded-0">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div style="margin: 6px 6px 6px 80%;" id="divBtnVerCursos4117">
+                    <a href="Grado.php" class="btn btn-info btn-circle">
+                        <i class="material-icons">ir</i> 
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-3 col-6">
-            <div  class="small-box bg-success">
-               <div class="inner" style="font-size: 10px">
-                    <h3><sup ></sup></h3>
-                    <p>Materias</p>
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="card-title m-0"><span>Materias</span></h4>
+                            <small class="text-muted"></small>
+                        </div>
+                    </div>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
+                <div class="progress rounded-0">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-                <a href="Cursos.php" class="small-box-footer">ir <i class="fas fa-arrow-circle-right"></i></a>
+                <div style="margin: 6px 6px 6px 80%;" id="divBtnVerCursos4117">
+                    <a href="Cursos.php" class="btn btn-info btn-circle">
+                        <i class="material-icons">ir</i> 
+                    </a>
+                </div>
             </div>
         </div>
 
 
-        
-     
-
-      
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="card-title m-0"><span>Asignar Carrera-Grado</span></h4>
+                            <small class="text-muted"></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress rounded-0">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div style="margin: 6px 6px 6px 80%;" id="divBtnVerCursos4117">
+                    <a href="asigprof.php" class="btn btn-info btn-circle">
+                        <i class="material-icons">ir</i> 
+                    </a>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 

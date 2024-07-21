@@ -2,7 +2,7 @@
 include "conexion.php";
 
 // Consultar los grados
-$query = "SELECT id, Docente,Materia, Descripcion FROM CursoAsignado"; // Ajusta según la estructura de tu tabla
+$query = "SELECT id, Docente,Materia,paraqcar,paraqgra  FROM CursoAsignado"; // Ajusta según la estructura de tu tabla
 $result = $conn->query($query);
 ?>
 
@@ -55,7 +55,8 @@ $result = $conn->query($query);
                                     <th scope="col">#</th>
                                     <th scope="col">Profesor</th>
                                     <th scope="col">Materia</th>
-                                    <th scope="col">Descripcion de Materia</th>
+                                    <th scope="col">Para que Carrera</th>
+                                    <th scope="col">Para que Grado</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -68,7 +69,8 @@ $result = $conn->query($query);
                                         <td><?php echo $dat->id; ?></td>
                                         <td><?php echo $dat->Docente; ?></td>
                                         <td><?php echo $dat->Materia; ?></td>
-                                        <td><?php echo $dat->Descripcion; ?></td>
+                                        <td><?php echo $dat->paraqcar; ?></td>
+                                        <td><?php echo $dat->paraqgra; ?></td>
                                         <td class="actions">
                                             <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
                                             <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></a>
