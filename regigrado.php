@@ -46,7 +46,7 @@
                             </center>
                         </form>
                         <center>
-                            <form action="grado.php">
+                            <form action="Grado.php">
                                 <div class="col-6">
                                     <center>
                                         <br><button type="submit" class="btn btn-primary btn-block"><i class="fas fa-arrow-left"></i> Regresar</button><br>

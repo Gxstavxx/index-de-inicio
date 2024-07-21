@@ -60,7 +60,7 @@ $result = $conn->query($query);
                                         <td><?php echo $dat->grado; ?></td>
                                         <td><?php echo $dat->descripcion; ?></td>
                                         <td class="actions">
-                                            <a href="registroasignatura.php" class="btn btn-small btn-primary"><i class="fas fa-edit"></i> Cursos</a>
+                                            <a href="Cursos.php" class="btn btn-small btn-primary"><i class="fas fa-edit"></i> Cursos</a>
                                             <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
                                             <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></a>
                                         </td>
