@@ -1,8 +1,20 @@
 <?php
-include "conexion.php";
+include 'conexion.php';
 
-// Consultar los grados
-$query = "SELECT id, Docente,Materia,paraqcar,paraqgra  FROM CursoAsignado"; // Ajusta según la estructura de tu tabla
+// Consultar los datos con nombres
+$query = "
+    SELECT 
+        CursoAsig.id, 
+        CursoAsig.Docente, 
+        CursoAsig.Profesion,
+        Carrera.Carrera AS paraqcar,
+        Grado.grado AS paraqgra,
+        CursoAsignado.Materia AS cursig
+    FROM CursoAsig
+    JOIN Carrera ON CursoAsig.paraqcar = Carrera.id
+    JOIN Grado ON CursoAsig.paraqgra = Grado.id
+    JOIN CursoAsignado ON CursoAsig.cursig = CursoAsignado.id
+"; 
 $result = $conn->query($query);
 ?>
 
@@ -54,9 +66,10 @@ $result = $conn->query($query);
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Profesor</th>
-                                    <th scope="col">Materia</th>
+                                    <th scope="col">Profesion</th>
                                     <th scope="col">Para que Carrera</th>
                                     <th scope="col">Para que Grado</th>
+                                    <th scope="col">Materia Asignada</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -68,9 +81,10 @@ $result = $conn->query($query);
                                     <tr>
                                         <td><?php echo $dat->id; ?></td>
                                         <td><?php echo $dat->Docente; ?></td>
-                                        <td><?php echo $dat->Materia; ?></td>
+                                        <td><?php echo $dat->Profesion; ?></td>
                                         <td><?php echo $dat->paraqcar; ?></td>
                                         <td><?php echo $dat->paraqgra; ?></td>
+                                        <td><?php echo $dat->cursig; ?></td>
                                         <td class="actions">
                                             <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
                                             <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></a>
@@ -97,4 +111,4 @@ $result = $conn->query($query);
 </body>
 </html>
 
-<?php $conn->close(); ?>
+<?php
