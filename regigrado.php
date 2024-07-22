@@ -36,6 +36,11 @@ $result = $conn->query($query);
                 <div class="card">
                     <div class="card-body">
                         <h2 class="mb-4 text-center">Registro de Grado</h2>
+                        <?php if (isset($errorMsg)): ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo htmlspecialchars($errorMsg); ?>
+                            </div>
+                        <?php endif; ?>
                         <form action="intregigrado.php" method="post">
                             <!-- Campo oculto para ID de Carrera -->
                             <input type="hidden" name="carrera_id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>">

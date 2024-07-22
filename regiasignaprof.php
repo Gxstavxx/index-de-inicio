@@ -55,7 +55,7 @@ $resultCurso = $conn->query($sqlCurso);
 
                             <div class="mb-3">
                                 <label for="search" class="form-label">Seleccionar Profesor</label>
-                                <select id="search" name="search" class="form-select" required onchange="updateProfesion()">
+                                <select id="search" name="profesor_id" class="form-select" required onchange="updateProfesion()">
                                     <option value="">Seleccione un profesor</option>
                                     <?php while ($row = $resultProf->fetch_assoc()) { ?>
                                         <option value="<?php echo $row['id']; ?>" data-profesion="<?php echo $row['profesion']; ?>">
@@ -71,7 +71,7 @@ $resultCurso = $conn->query($sqlCurso);
 
                             <div class="mb-3">
                                 <label for="paraqcar" class="form-label">Para qué Carrera</label>
-                                <select id="paraqcar" name="paraqcar" class="form-select" required onchange="updateCarrera()">
+                                <select id="paraqcar" name="carrera_id" class="form-select" required onchange="updateCarrera()">
                                     <option value="">Seleccione una carrera</option>
                                     <?php while ($row = $resultCarr->fetch_assoc()) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['Carrera']; ?></option>
@@ -81,7 +81,7 @@ $resultCurso = $conn->query($sqlCurso);
                             </div>
                             <div class="mb-3">
                                 <label for="paraqgra" class="form-label">Para qué Grado</label>
-                                <select id="paraqgra" name="paraqgra" class="form-select" required onchange="updateGrado()">
+                                <select id="paraqgra" name="grado_id" class="form-select" required onchange="updateGrado()">
                                     <option value="">Seleccione un grado</option>
                                     <?php while ($row = $resultGrad->fetch_assoc()) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['grado']; ?></option>
@@ -91,7 +91,7 @@ $resultCurso = $conn->query($sqlCurso);
                             </div>
                             <div class="mb-3">
                                 <label for="materia" class="form-label">Materia Asignada</label>
-                                <select id="materia" name="materia" class="form-select" required onchange="updateMateria()">
+                                <select id="materia" name="curso_id" class="form-select" required onchange="updateMateria()">
                                     <option value="">Seleccione una materia</option>
                                     <?php while ($row = $resultCurso->fetch_assoc()) { ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['Materia']; ?></option>

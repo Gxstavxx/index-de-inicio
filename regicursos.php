@@ -36,7 +36,7 @@
                                     <option value="">Seleccione una carrera</option>
                                     <?php
                                     include 'conexion.php';
-                                    $query_carrera = "SELECT id, Carrera FROM Carrera";
+                                    $query_carrera = "SELECT id, Carrera FROM carrera";
                                     $result_carrera = $conn->query($query_carrera);
                                     if ($result_carrera && $result_carrera->num_rows > 0) {
                                         while ($dat_carrera = $result_carrera->fetch_object()) {
@@ -54,7 +54,7 @@
                                     <option value="">Seleccione un grado</option>
                                     <?php
                                     include 'conexion.php';
-                                    $query_grado = "SELECT DISTINCT grado, id FROM Grado ORDER BY grado";
+                                    $query_grado = "SELECT DISTINCT grado, id FROM grado ORDER BY grado";
                                     $result_grado = $conn->query($query_grado);
 
                                     // Filtrar duplicados en PHP
@@ -72,6 +72,12 @@
                                     ?>
                                 </select>
                             </div>
+
+                            <?php if (isset($errorMsg)): ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <?php echo $errorMsg; ?>
+                                </div>
+                            <?php endif; ?>
 
                             <center>
                                 <div class="row justify-content-center">

@@ -11,9 +11,9 @@ $query = "
         Grado.grado AS paraqgra,
         CursoAsignado.Materia AS cursig
     FROM CursoAsig
-    JOIN Carrera ON CursoAsig.paraqcar = Carrera.id
-    JOIN Grado ON CursoAsig.paraqgra = Grado.id
-    JOIN CursoAsignado ON CursoAsig.cursig = CursoAsignado.id
+    LEFT JOIN Carrera ON CursoAsig.paraqcar = Carrera.id
+    LEFT JOIN Grado ON CursoAsig.paraqgra = Grado.id
+    LEFT JOIN CursoAsignado ON CursoAsig.cursig = CursoAsignado.id
 "; 
 $result = $conn->query($query);
 ?>
@@ -67,8 +67,8 @@ $result = $conn->query($query);
                                     <th scope="col">#</th>
                                     <th scope="col">Profesor</th>
                                     <th scope="col">Profesion</th>
-                                    <th scope="col">Para que Carrera</th>
-                                    <th scope="col">Para que Grado</th>
+                                    <th scope="col">Para qué Carrera</th>
+                                    <th scope="col">Para qué Grado</th>
                                     <th scope="col">Materia Asignada</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
@@ -87,14 +87,13 @@ $result = $conn->query($query);
                                         <td><?php echo $dat->cursig; ?></td>
                                         <td class="actions">
                                             <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
-                                            <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                            <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 <?php
                                     }
-                                    $result->close(); // Liberar el conjunto de resultados
                                 } else {
-                                    echo "<tr><td colspan='7'>No hay registros encontrados</td></tr>";
+                                    echo "<tr><td colspan='7' class='text-center'>No se encontraron datos.</td></tr>";
                                 }
                                 ?>
                             </tbody>
@@ -104,11 +103,5 @@ $result = $conn->query($query);
             </div>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-<?php

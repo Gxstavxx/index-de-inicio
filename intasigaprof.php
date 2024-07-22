@@ -4,51 +4,75 @@ include 'conexion.php';
 // Manejar la acción del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener los valores del formulario
-    $search = $_POST['search']; // ID del profesor seleccionado
+    $profesor_id = $_POST['profesor_id']; // ID del profesor seleccionado
     $profesion = $_POST['profesion']; // Profesión del profesor
-    $paraqcar = $_POST['paraqcar']; // ID de la carrera seleccionada
-    $paraqgra = $_POST['paraqgra']; // ID del grado seleccionado
-    $materia = $_POST['materia']; // ID de la materia seleccionada
+    $carrera_id = $_POST['carrera_id']; // ID de la carrera seleccionada
+    $grado_id = $_POST['grado_id']; // ID del grado seleccionado
+    $curso_id = $_POST['curso_id']; // ID de la materia seleccionada
 
     // Obtener los nombres del profesor
     $sqlProf = "SELECT nombres, apellidos FROM prof WHERE id = ?";
     if ($stmt = $conn->prepare($sqlProf)) {
-        $stmt->bind_param("i", $search);
+        $stmt->bind_param("i", $profesor_id);
         $stmt->execute();
         $result = $stmt->get_result();
         $professor = $result->fetch_assoc();
         $docente = $professor['nombres'] . ' ' . $professor['apellidos'];
         $stmt->close();
+    } else {
+        echo "Error al preparar la consulta de profesor: " . $conn->error;
+        exit();
     }
 
     // Obtener el nombre de la carrera
     $sqlCarr = "SELECT Carrera FROM Carrera WHERE id = ?";
     if ($stmt = $conn->prepare($sqlCarr)) {
-        $stmt->bind_param("i", $paraqcar);
+        $stmt->bind_param("i", $carrera_id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $carrera = $result->fetch_assoc()['Carrera'];
+        if ($result->num_rows > 0) {
+            $carrera = $result->fetch_assoc()['Carrera'];
+        } else {
+            $carrera = 'Desconocido'; // Valor predeterminado en caso de que no se encuentre
+        }
         $stmt->close();
+    } else {
+        echo "Error al preparar la consulta de carrera: " . $conn->error;
+        exit();
     }
 
     // Obtener el nombre del grado
     $sqlGrad = "SELECT grado FROM Grado WHERE id = ?";
     if ($stmt = $conn->prepare($sqlGrad)) {
-        $stmt->bind_param("i", $paraqgra);
+        $stmt->bind_param("i", $grado_id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $grado = $result->fetch_assoc()['grado'];
+        if ($result->num_rows > 0) {
+            $grado = $result->fetch_assoc()['grado'];
+        } else {
+            $grado = 'Desconocido'; // Valor predeterminado en caso de que no se encuentre
+        }
         $stmt->close();
+    } else {
+        echo "Error al preparar la consulta de grado: " . $conn->error;
+        exit();
     }
 
     // Obtener el nombre de la materia
     $sqlCurso = "SELECT Materia FROM CursoAsignado WHERE id = ?";
     if ($stmt = $conn->prepare($sqlCurso)) {
-        $stmt->bind_param("i", $materia);
+        $stmt->bind_param("i", $curso_id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $materiaNombre = $result->fetch_assoc()['Materia'];
+        if ($result->num_rows > 0) {
+            $materiaNombre = $result->fetch_assoc()['Materia'];
+        } else {
+            $materiaNombre = 'Desconocido'; // Valor predeterminado en caso de que no se encuentre
+        }
         $stmt->close();
+    } else {
+        echo "Error al preparar la consulta de materia: " . $conn->error;
+        exit();
     }
 
     // Insertar en la tabla CursoAsig
@@ -64,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $stmt->close();
     } else {
-        echo "Error al preparar la consulta: " . $conn->error;
+        echo "Error al preparar la consulta de inserción: " . $conn->error;
     }
 
     $conn->close();

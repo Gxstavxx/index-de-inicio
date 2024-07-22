@@ -10,27 +10,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contraseña = $_POST['contraseña'];
     $contra = md5($contraseña);
 
-    // Corregir el número de campos y valores en la consulta SQL
-    $sql = "INSERT INTO prof (nombres, apellidos, profesion, nickname, correo, contraseña, contra) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    // Verificar si el nickname ya existe
+    $check_sql = "SELECT * FROM prof WHERE nickname = ?";
+    $check_stmt = $conn->prepare($check_sql);
+    $check_stmt->bind_param("s", $nickname);
+    $check_stmt->execute();
+    $result = $check_stmt->get_result();
 
-    if ($stmt = $conn->prepare($sql)) {
-        // Corregir el número de parámetros de vinculación
+    if ($result->num_rows > 0) {
+        // El nickname ya existe
+        $errorMsg = "El usuario ya existe. Por favor, elija otro.";
+        include 'registrarpro.php'; // Asegúrate de que 'registro_form.php' contiene el código HTML del formulario
+    } else {
+        // Insertar nuevo registro
+        $sql = "INSERT INTO prof (nombres, apellidos, profesion, nickname, correo, contraseña, contra) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssssss", $nombres, $apellidos, $profesion, $nickname, $correo, $contraseña, $contra);
 
         if ($stmt->execute()) {
-            echo "Registro exitoso!";
+            header('Location: interfaz1.php');
+            exit(); // Asegurarse de que el script se detenga después de la redirección
         } else {
-            echo "Error al registrar: " . $stmt->error;
+            $errorMsg = "Error al registrar: " . $stmt->error;
+            include 'registro_form.php';
         }
+
         $stmt->close();
-    } else {
-        echo "Error al preparar la consulta: " . $conn->error;
     }
 
+    $check_stmt->close();
     $conn->close();
-    header('Location: interfaz1.php');
-    exit(); // Asegurarse de que el script se detenga después de la redirección
 }
-?>
-
 ?>

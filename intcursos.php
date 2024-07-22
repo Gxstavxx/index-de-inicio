@@ -8,8 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $grado_id = $_POST['grado'];
 
     // Obtener el nombre de la carrera y el grado desde sus respectivas tablas
-    $query_carrera = "SELECT Carrera FROM Carrera WHERE id = ?";
-    $query_grado = "SELECT grado FROM Grado WHERE id = ?";
+    $query_carrera = "SELECT Carrera FROM carrera WHERE id = ?";
+    $query_grado = "SELECT grado FROM grado WHERE id = ?";
 
     // Consultar nombre de la carrera
     if ($stmt_carrera = $conn->prepare($query_carrera)) {
@@ -35,13 +35,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Insertar en la tabla CursoAsignado
-    $sql = "INSERT INTO CursoAsignado (Docente, Materia, paraqcar, paraqgra) VALUES (?, ?, ?, ?)";
+    // Verificar si ya existe la combinación Materia, Carrera, Grado
+    $query_check = "SELECT COUNT(*) FROM cursoasignado WHERE Materia = ? AND paraqcar = ? AND paraqgra = ?";
+    if ($stmt_check = $conn->prepare($query_check)) {
+        $stmt_check->bind_param("sss", $curso, $nombre_carrera, $nombre_grado);
+        $stmt_check->execute();
+        $stmt_check->bind_result($count);
+        $stmt_check->fetch();
+        $stmt_check->close();
+
+        if ($count > 0) {
+            $errorMsg = "La materia ya está asignada a esta carrera y grado.";
+            include 'regicursos.php'; // Incluir el formulario con el mensaje de error
+            exit();
+        }
+    } else {
+        echo "Error al preparar la consulta de verificación: " . $conn->error;
+        exit();
+    }
+
+    // Insertar en la tabla CursoAsignado si no existe
+    $sql = "INSERT INTO cursoasignado (Materia, paraqcar, paraqgra) VALUES (?, ?, ?)";
     if ($stmt = $conn->prepare($sql)) {
-        $docente = ''; // Puedes obtenerlo de alguna otra forma si es necesario
-        $stmt->bind_param("ssss", $docente, $curso, $nombre_carrera, $nombre_grado);
+        $stmt->bind_param("sss", $curso, $nombre_carrera, $nombre_grado);
         if ($stmt->execute()) {
-            echo "Registro de curso asignado exitoso!";
+            header('Location: Cursos.php');
+            exit();
         } else {
             echo "Error al registrar curso asignado: " . $stmt->error;
         }
@@ -51,7 +70,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $conn->close();
-    header('Location: Cursos.php');
-    exit();
 }
 ?>
