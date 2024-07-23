@@ -16,6 +16,9 @@ $resultGrad = $conn->query($sqlGrad);
 // Obtener todos los cursos (materias)
 $sqlCurso = "SELECT id, Materia FROM CursoAsignado";
 $resultCurso = $conn->query($sqlCurso);
+
+// Capturar el mensaje de error de la URL si existe
+$error_message = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
 ?>
 
 <!DOCTYPE html>
@@ -44,14 +47,14 @@ $resultCurso = $conn->query($sqlCurso);
                 <div class="card">
                     <div class="card-body">
                         <h2 class="mb-4 text-center">Asignar Profesor</h2>
-                        <?php if (isset($error_message)) { ?>
+                        <?php if ($error_message): ?>
                             <div class="alert alert-danger" role="alert">
                                 <?php echo $error_message; ?>
                             </div>
-                        <?php } ?>
+                        <?php endif; ?>
                         <form action="intasigaprof.php" method="post" id="assign-form">
                             <!-- Campo oculto para ID de Carrera -->
-                            <input type="hidden" name="carrera_id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>">
+                            <input type="hidden" name="carrera_id" value="<?php echo isset($_GET['carrera_id']) ? htmlspecialchars($_GET['carrera_id']) : ''; ?>">
 
                             <div class="mb-3">
                                 <label for="search" class="form-label">Seleccionar Profesor</label>

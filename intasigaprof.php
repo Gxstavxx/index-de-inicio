@@ -1,5 +1,6 @@
 <?php
 include 'conexion.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $profesor_id = $_POST['profesor_id'];
     $profesion = $_POST['profesion']; // Usar el campo oculto con el nuevo nombre
@@ -28,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->num_rows > 0) {
         $stmt->close();
         $conn->close();
-        header("Location: regiasignaprof.php?error=La asignación ya existe");
+        header("Location: regiasignaprof.php?error=" . urlencode("La asignación ya existe") . "&profesor_id=" . urlencode($profesor_id) . "&carrera_id=" . urlencode($carrera_id) . "&grado_id=" . urlencode($grado_id) . "&curso_id=" . urlencode($curso_id));
         exit();
     } else {
         $stmt->close();
@@ -40,14 +41,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->execute()) {
             $stmt->close();
             $conn->close();
-            header("Location: Asigprof.php?success=Asignación realizada correctamente");
+            header("Location: Asigprof.php?success=" . urlencode("Asignación realizada correctamente"));
             exit();
         } else {
             $error_message = "Error al insertar el registro: " . $stmt->error;
             $stmt->close();
             $conn->close();
+            header("Location: regiasignaprof.php?error=" . urlencode($error_message) . "&profesor_id=" . urlencode($profesor_id) . "&carrera_id=" . urlencode($carrera_id) . "&grado_id=" . urlencode($grado_id) . "&curso_id=" . urlencode($curso_id));
+            exit();
         }
     }
 }
-
 ?>
