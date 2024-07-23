@@ -1,7 +1,6 @@
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  
     include 'conexion.php'; 
 
     $tipo = $_POST['tipo'];
@@ -32,7 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Cerrar la conexión
     $conn->close();
+    header('Location: index.php');
+    exit();
 }
 
-header('Location: index.php');
 ?>

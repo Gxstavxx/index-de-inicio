@@ -11,21 +11,16 @@
 </head>
 
 <body class="background2">
-
     <center>
-
         <div id="B2" class="card col-sm-3" style="margin-top: 6%;">
-
             <div class="card-body login-card-body">
                 <p class="login-box-msg"><b>CREAR CUENTA</b></p>
-                
                 <div class="custom-controls-stacked row text-center pb-3">
                     <div class="custom-control custom-radio col-md-4 text-right">
                         <input id="tipoBusqueda1" name="tipoBusqueda" value="1" type="radio" class="custom-control-input tipoBusqueda" checked="checked">
                         <label for="tipoBusqueda1" class="custom-control-label">Alumno</label>
                     </div>
                 </div>
-
                 <!-- Formulario Alumno -->
                 <form id="formAlumno" action="registro.php" method="post">
                     <input type="hidden" name="tipo" value="alumno">
@@ -36,10 +31,32 @@
                         <input type="text" name="apellido" class="form-control" placeholder="Ingrese sus Apellidos" required>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="grado" class="form-control" placeholder="Ingrese su Grado" required>
+                        <select name="grado" class="form-control" required>
+                            <option value="" disabled selected>Seleccione su Grado</option>
+                            <?php
+                                include 'conexion.php';
+                                $result = $conn->query("SELECT id, grado FROM grado");
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<option value='" . $row['id'] . "'>" . $row['grado'] . "</option>";
+                                }
+                                $result->free();
+                                $conn->close();
+                            ?>
+                        </select>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="carrera" class="form-control" placeholder="Ingrese su Carrera" required>
+                        <select name="carrera" class="form-control" required>
+                            <option value="" disabled selected>Seleccione su Carrera</option>
+                            <?php
+                                include 'conexion.php';
+                                $result = $conn->query("SELECT id, Carrera FROM carrera");
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<option value='" . $row['id'] . "'>" . $row['Carrera'] . "</option>";
+                                }
+                                $result->free();
+                                $conn->close();
+                            ?>
+                        </select>
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Usuario" required onblur="addAlumToNickname(this)">
@@ -56,7 +73,6 @@
                         </div>
                     </div>
                 </form>
-
                 <form action="index.php">
                     <div class="col-6">
                         <br><button type="submit" class="btn btn-primary btn-block"><i class="fas fa-arrow-left"></i> Regresar</button>
@@ -66,36 +82,32 @@
             </div>
         </div>
     </center>
-
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const tipoBusqueda1 = document.getElementById('tipoBusqueda1');
-        const formAlumno = document.getElementById('formAlumno');
+        document.addEventListener('DOMContentLoaded', function() {
+            const tipoBusqueda1 = document.getElementById('tipoBusqueda1');
+            const formAlumno = document.getElementById('formAlumno');
 
-        tipoBusqueda1.addEventListener('change', function() {
-            if (tipoBusqueda1.checked) {
-                formAlumno.style.display = 'block';
-            }
+            tipoBusqueda1.addEventListener('change', function() {
+                if (tipoBusqueda1.checked) {
+                    formAlumno.style.display = 'block';
+                }
+            });
         });
-    });
 
-    function addAlumToNickname(input) {
-        const value = input.value.trim();
-        const cursorPosition = input.selectionStart;
-        const lastIndexOfAlum = value.lastIndexOf('-alum');
+        function addAlumToNickname(input) {
+            const value = input.value.trim();
+            const cursorPosition = input.selectionStart;
+            const lastIndexOfAlum = value.lastIndexOf('-alum');
 
-        if (lastIndexOfAlum === -1 || cursorPosition <= lastIndexOfAlum) {
-            input.value = value + '-alum';
-        } else if (cursorPosition > lastIndexOfAlum + 5) {
-            input.setSelectionRange(lastIndexOfAlum + 5, lastIndexOfAlum + 5);
+            if (lastIndexOfAlum === -1 || cursorPosition <= lastIndexOfAlum) {
+                input.value = value + '-alum';
+            } else if (cursorPosition > lastIndexOfAlum + 5) {
+                input.setSelectionRange(lastIndexOfAlum + 5, lastIndexOfAlum + 5);
+            }
         }
-    }
     </script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-
 </body>
-
 </html>

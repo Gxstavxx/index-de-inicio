@@ -23,6 +23,9 @@
         .btn-circle i {
             margin-right: 5px;
         }
+        .progress-bar {
+            background-color: #FF5733 !important; /* Cambiar el color de la barra de progreso */
+        }
     </style>
 </head>
 <body>
@@ -44,6 +47,27 @@
                 </div>
                 <div style="margin: 6px 6px 6px 80%;" id="divBtnVerCursos4117">
                     <a href="interfaz1.php" class="btn btn-info btn-circle">
+                        <i class="material-icons">ir</i> 
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="card-title m-0"><span>Registro de Alumnos</span></h4>
+                            <small class="text-muted"></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress rounded-0">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div style="margin: 6px 6px 6px 80%;" id="divBtnVerCursos4117">
+                    <a href="registrar.php" class="btn btn-info btn-circle">
                         <i class="material-icons">ir</i> 
                     </a>
                 </div>
@@ -134,6 +158,9 @@
                 </div>
             </div>
         </div>
+
+
+    
 
     </div>
 </div>
