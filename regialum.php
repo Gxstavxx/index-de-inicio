@@ -1,20 +1,21 @@
 <?php
 include 'conexion.php';
 
-// Consultar los datos con nombres
+// Consultar los datos de los estudiantes
 $query = "
-    SELECT 
-        ca.id, 
-        ca.Docente, 
-        ca.Profesion AS Profesion,
-        c.Carrera AS paraqcar,
-        g.grado AS paraqgra,
-        cu.Materia AS cursig
-    FROM cursoasig ca
-    LEFT JOIN Carrera c ON ca.paraqcar = c.id
-    LEFT JOIN Grado g ON ca.paraqgra = g.id
-    LEFT JOIN CursoAsignado cu ON ca.cursig = cu.id
-"; 
+  SELECT 
+        est.id,
+        est.nombres,
+        est.apellidos,
+        g.grado,
+        c.Carrera,
+        est.nickname,
+        est.correo,
+        est.contra AS contraseña
+    FROM est
+    LEFT JOIN grado g ON est.grado = g.id
+    LEFT JOIN carrera c ON est.carrera = c.id
+";
 $result = $conn->query($query);
 ?>
 
@@ -54,8 +55,8 @@ $result = $conn->query($query);
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center mb-4">Asignar Profesor al Curso</h1>
-                <a href="regiasignaprof.php" class="btn btn-block btn-outline-info btn-sm">Asignar Profesor</a>
+                <h1 class="text-center mb-4">Registro de Alumnos</h1>
+                <a href="registrar.php" class="btn btn-block btn-outline-info btn-sm">Deseas Registrar un Alumno</a>
 
                 <div class="card">
                     <div class="card-body">
@@ -65,11 +66,13 @@ $result = $conn->query($query);
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Profesor</th>
-                                    <th scope="col">Profesion</th>
-                                    <th scope="col">Para qué Carrera</th>
-                                    <th scope="col">Para qué Grado</th>
-                                    <th scope="col">Materia Asignada</th>
+                                    <th scope="col">Nombres</th>
+                                    <th scope="col">Apellidos</th>
+                                    <th scope="col">Grado</th>
+                                    <th scope="col">Carrera</th>
+                                    <th scope="col">Nick</th>
+                                    <th scope="col">Correo</th>
+                                    <th scope="col">Contraseña</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -80,11 +83,13 @@ $result = $conn->query($query);
                                 ?>
                                     <tr>
                                         <td><?php echo $dat->id; ?></td>
-                                        <td><?php echo $dat->Docente; ?></td>
-                                        <td><?php echo $dat->Profesion; ?></td>
-                                        <td><?php echo $dat->paraqcar; ?></td>
-                                        <td><?php echo $dat->paraqgra; ?></td>
-                                        <td><?php echo $dat->cursig; ?></td>
+                                        <td><?php echo $dat->nombres; ?></td>
+                                        <td><?php echo $dat->apellidos; ?></td>
+                                        <td><?php echo $dat->grado; ?></td>
+                                        <td><?php echo $dat->Carrera; ?></td>
+                                        <td><?php echo $dat->nickname; ?></td>
+                                        <td><?php echo $dat->correo; ?></td>
+                                        <td><?php echo $dat->contraseña; ?></td>
                                         <td class="actions">
                                             <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
                                             <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash"></i></a>
@@ -93,7 +98,7 @@ $result = $conn->query($query);
                                 <?php
                                     }
                                 } else {
-                                    echo "<tr><td colspan='7' class='text-center'>No se encontraron datos.</td></tr>";
+                                    echo "<tr><td colspan='9' class='text-center'>No se encontraron datos.</td></tr>";
                                 }
                                 ?>
                             </tbody>
