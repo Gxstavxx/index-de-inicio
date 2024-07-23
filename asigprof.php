@@ -4,16 +4,16 @@ include 'conexion.php';
 // Consultar los datos con nombres
 $query = "
     SELECT 
-        CursoAsig.id, 
-        CursoAsig.Docente, 
-        CursoAsig.Profesion,
-        Carrera.Carrera AS paraqcar,
-        Grado.grado AS paraqgra,
-        CursoAsignado.Materia AS cursig
-    FROM CursoAsig
-    LEFT JOIN Carrera ON CursoAsig.paraqcar = Carrera.id
-    LEFT JOIN Grado ON CursoAsig.paraqgra = Grado.id
-    LEFT JOIN CursoAsignado ON CursoAsig.cursig = CursoAsignado.id
+        ca.id, 
+        ca.Docente, 
+        ca.Profesion AS Profesion,
+        c.Carrera AS paraqcar,
+        g.grado AS paraqgra,
+        cu.Materia AS cursig
+    FROM cursoasig ca
+    LEFT JOIN Carrera c ON ca.paraqcar = c.id
+    LEFT JOIN Grado g ON ca.paraqgra = g.id
+    LEFT JOIN CursoAsignado cu ON ca.cursig = cu.id
 "; 
 $result = $conn->query($query);
 ?>
@@ -105,3 +105,7 @@ $result = $conn->query($query);
     </div>
 </body>
 </html>
+
+<?php
+$conn->close();
+?>

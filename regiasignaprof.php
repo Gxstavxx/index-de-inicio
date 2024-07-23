@@ -58,8 +58,8 @@ $resultCurso = $conn->query($sqlCurso);
                                 <select id="search" name="profesor_id" class="form-select" required onchange="updateProfesion()">
                                     <option value="">Seleccione un profesor</option>
                                     <?php while ($row = $resultProf->fetch_assoc()) { ?>
-                                        <option value="<?php echo $row['id']; ?>" data-profesion="<?php echo $row['profesion']; ?>">
-                                            <?php echo $row['nombres'] . ' ' . $row['apellidos'] . ' (' . $row['id'] . ')'; ?>
+                                        <option value="<?php echo htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8'); ?>" data-profesion="<?php echo htmlspecialchars($row['profesion'], ENT_QUOTES, 'UTF-8'); ?>">
+                                            <?php echo htmlspecialchars($row['nombres'], ENT_QUOTES, 'UTF-8') . ' ' . htmlspecialchars($row['apellidos'], ENT_QUOTES, 'UTF-8') . ' (' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . ')'; ?>
                                         </option>
                                     <?php } ?>
                                 </select>
@@ -67,6 +67,7 @@ $resultCurso = $conn->query($sqlCurso);
                             <div class="mb-3">
                                 <label for="profesion" class="form-label">Profesión</label>
                                 <input type="text" id="profesion" name="profesion" class="form-control" readonly required>
+                                <input type="hidden" id="hidden_profesion" name="hidden_profesion">
                             </div>
 
                             <div class="mb-3">
@@ -74,7 +75,7 @@ $resultCurso = $conn->query($sqlCurso);
                                 <select id="paraqcar" name="carrera_id" class="form-select" required onchange="updateCarrera()">
                                     <option value="">Seleccione una carrera</option>
                                     <?php while ($row = $resultCarr->fetch_assoc()) { ?>
-                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['Carrera']; ?></option>
+                                        <option value="<?php echo htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($row['Carrera'], ENT_QUOTES, 'UTF-8'); ?></option>
                                     <?php } ?>
                                 </select>
                                 <input type="text" id="selectedCarrera" name="selectedCarrera" class="form-control mt-2" readonly>
@@ -84,7 +85,7 @@ $resultCurso = $conn->query($sqlCurso);
                                 <select id="paraqgra" name="grado_id" class="form-select" required onchange="updateGrado()">
                                     <option value="">Seleccione un grado</option>
                                     <?php while ($row = $resultGrad->fetch_assoc()) { ?>
-                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['grado']; ?></option>
+                                        <option value="<?php echo htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($row['grado'], ENT_QUOTES, 'UTF-8'); ?></option>
                                     <?php } ?>
                                 </select>
                                 <input type="text" id="selectedGrado" name="selectedGrado" class="form-control mt-2" readonly>
@@ -94,7 +95,7 @@ $resultCurso = $conn->query($sqlCurso);
                                 <select id="materia" name="curso_id" class="form-select" required onchange="updateMateria()">
                                     <option value="">Seleccione una materia</option>
                                     <?php while ($row = $resultCurso->fetch_assoc()) { ?>
-                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['Materia']; ?></option>
+                                        <option value="<?php echo htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($row['Materia'], ENT_QUOTES, 'UTF-8'); ?></option>
                                     <?php } ?>
                                 </select>
                                 <input type="text" id="selectedMateria" name="selectedMateria" class="form-control mt-2" readonly>
@@ -128,9 +129,11 @@ $resultCurso = $conn->query($sqlCurso);
         function updateProfesion() {
             const select = document.getElementById('search');
             const profesionInput = document.getElementById('profesion');
+            const hiddenProfesion = document.getElementById('hidden_profesion');
             const selectedOption = select.options[select.selectedIndex];
             const profesion = selectedOption.getAttribute('data-profesion');
             profesionInput.value = profesion;
+            hiddenProfesion.value = profesion;
         }
 
         function updateCarrera() {

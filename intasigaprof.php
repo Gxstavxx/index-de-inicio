@@ -1,14 +1,11 @@
 <?php
 include 'conexion.php';
-
-// Manejar la acción del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener los valores del formulario
-    $profesor_id = $_POST['profesor_id']; // ID del profesor seleccionado
-    $profesion = $_POST['profesion']; // Profesión del profesor
-    $carrera_id = $_POST['carrera_id']; // ID de la carrera seleccionada
-    $grado_id = $_POST['grado_id']; // ID del grado seleccionado
-    $curso_id = $_POST['curso_id']; // ID de la materia seleccionada
+    $profesor_id = $_POST['profesor_id'];
+    $profesion = $_POST['profesion']; // Usar el campo oculto con el nuevo nombre
+    $carrera_id = $_POST['carrera_id'];
+    $grado_id = $_POST['grado_id'];
+    $curso_id = $_POST['curso_id'];
 
     // Obtener los nombres del profesor
     $sqlProf = "SELECT nombres, apellidos FROM prof WHERE id = ?";
@@ -19,78 +16,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $professor = $result->fetch_assoc();
         $docente = $professor['nombres'] . ' ' . $professor['apellidos'];
         $stmt->close();
-    } else {
-        echo "Error al preparar la consulta de profesor: " . $conn->error;
-        exit();
     }
 
-    // Obtener el nombre de la carrera
-    $sqlCarr = "SELECT Carrera FROM Carrera WHERE id = ?";
-    if ($stmt = $conn->prepare($sqlCarr)) {
-        $stmt->bind_param("i", $carrera_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $carrera = $result->fetch_assoc()['Carrera'];
-        } else {
-            $carrera = 'Desconocido'; // Valor predeterminado en caso de que no se encuentre
-        }
+    // Verificar si la asignación ya existe en la base de datos
+    $sqlCheck = "SELECT * FROM cursoasig WHERE Docente = ? AND paraqcar = ? AND paraqgra = ? AND cursig = ?";
+    $stmt = $conn->prepare($sqlCheck);
+    $stmt->bind_param("siii", $docente, $carrera_id, $grado_id, $curso_id);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
         $stmt->close();
-    } else {
-        echo "Error al preparar la consulta de carrera: " . $conn->error;
+        $conn->close();
+        header("Location: regiasignaprof.php?error=La asignación ya existe");
         exit();
-    }
-
-    // Obtener el nombre del grado
-    $sqlGrad = "SELECT grado FROM Grado WHERE id = ?";
-    if ($stmt = $conn->prepare($sqlGrad)) {
-        $stmt->bind_param("i", $grado_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $grado = $result->fetch_assoc()['grado'];
-        } else {
-            $grado = 'Desconocido'; // Valor predeterminado en caso de que no se encuentre
-        }
+    } else {
         $stmt->close();
-    } else {
-        echo "Error al preparar la consulta de grado: " . $conn->error;
-        exit();
-    }
+        // Insertar el nuevo registro en la tabla CursoAsignado
+        $sqlInsert = "INSERT INTO cursoasig (Docente, paraqcar, paraqgra, Profesion, cursig) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sqlInsert);
+        $stmt->bind_param("sissi", $docente, $carrera_id, $grado_id, $profesion, $curso_id);
 
-    // Obtener el nombre de la materia
-    $sqlCurso = "SELECT Materia FROM CursoAsignado WHERE id = ?";
-    if ($stmt = $conn->prepare($sqlCurso)) {
-        $stmt->bind_param("i", $curso_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            $materiaNombre = $result->fetch_assoc()['Materia'];
-        } else {
-            $materiaNombre = 'Desconocido'; // Valor predeterminado en caso de que no se encuentre
-        }
-        $stmt->close();
-    } else {
-        echo "Error al preparar la consulta de materia: " . $conn->error;
-        exit();
-    }
-
-    // Insertar en la tabla CursoAsig
-    $sql = "INSERT INTO CursoAsig (Docente, Profesion, paraqcar, paraqgra, cursig) VALUES (?, ?, ?, ?, ?)";
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("sssss", $docente, $profesion, $carrera, $grado, $materiaNombre);
         if ($stmt->execute()) {
-            // Redirigir a la página de asignación de profesor después de la inserción exitosa
-            header('Location: asigprof.php');
+            $stmt->close();
+            $conn->close();
+            header("Location: Asigprof.php?success=Asignación realizada correctamente");
             exit();
         } else {
-            echo "Error al registrar: " . $stmt->error;
+            $error_message = "Error al insertar el registro: " . $stmt->error;
+            $stmt->close();
+            $conn->close();
         }
-        $stmt->close();
-    } else {
-        echo "Error al preparar la consulta de inserción: " . $conn->error;
     }
-
-    $conn->close();
 }
+
 ?>
