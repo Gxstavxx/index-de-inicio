@@ -17,6 +17,10 @@ $query = "
     LEFT JOIN carrera c ON est.carrera = c.id
 ";
 $result = $conn->query($query);
+
+// Consultar grados y carreras para los select
+$grados = $conn->query("SELECT id, grado FROM grado");
+$carreras = $conn->query("SELECT id, Carrera FROM carrera");
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +28,7 @@ $result = $conn->query($query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grado</title>
+    <title>Registro de Alumnos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -37,12 +41,11 @@ $result = $conn->query($query);
         }
         .actions {
             display: flex;
-            gap: 10px; /* Espacio entre botones */
+            gap: 5px; /* Espacio entre botones */
         }
-        .actions .btn {
-            width: 80px; /* Ajusta el ancho a un valor fijo */
-            text-align: center; /* Alinea el texto y el ícono en el centro */
-            padding: 5px 8px; /* Ajusta el tamaño del botón */
+        .actions .btn, .actions select {
+            font-size: 0.8rem; /* Tamaño de fuente más pequeño */
+            padding: 2px 5px; /* Ajusta el tamaño del botón */
         }
         .btn-professor {
             color: white; /* Color del ícono */
@@ -60,8 +63,22 @@ $result = $conn->query($query);
 
                 <div class="card">
                     <div class="card-body">
-                        <a href="asignatura.php" class="btn btn-small btn-danger mb-3"><i class="fas fa-arrow-left"></i> Regresar</a>
-                        <a href="cerrar.php" class="btn btn-small btn-danger mb-3">Cerrar Sesion</a>
+                        <div class="actions mb-3">
+                            <a href="interfazprincipal.php" class="btn btn-small btn-danger"><i class="fas fa-arrow-left"></i> Regresar</a>
+                            <a href="cerrar.php" class="btn btn-small btn-danger">Cerrar Sesion</a>
+                            <select id="filterGrado" class="form-control form-control-sm ml-2">
+                                <option value="">Todos los Grados</option>
+                                <?php while ($row = $grados->fetch_assoc()) { ?>
+                                    <option value="<?php echo $row['grado']; ?>"><?php echo $row['grado']; ?></option>
+                                <?php } ?>
+                            </select>
+                            <select id="filterCarrera" class="form-control form-control-sm ml-2">
+                                <option value="">Todas las Carreras</option>
+                                <?php while ($row = $carreras->fetch_assoc()) { ?>
+                                    <option value="<?php echo $row['Carrera']; ?>"><?php echo $row['Carrera']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -76,7 +93,7 @@ $result = $conn->query($query);
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="studentTable">
                                 <?php
                                 if ($result && $result->num_rows > 0) {
                                     while ($dat = $result->fetch_object()) {
@@ -108,6 +125,31 @@ $result = $conn->query($query);
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('filterGrado').addEventListener('change', filterTable);
+        document.getElementById('filterCarrera').addEventListener('change', filterTable);
+
+        function filterTable() {
+            const filterGrado = document.getElementById('filterGrado').value.toLowerCase();
+            const filterCarrera = document.getElementById('filterCarrera').value.toLowerCase();
+            const table = document.getElementById('studentTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                const grado = cells[3].innerText.toLowerCase();
+                const carrera = cells[4].innerText.toLowerCase();
+
+                if ((filterGrado === "" || grado.includes(filterGrado)) &&
+                    (filterCarrera === "" || carrera.includes(filterCarrera))) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 </html>
 
