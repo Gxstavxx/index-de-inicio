@@ -32,6 +32,20 @@ $stmt->bind_param("s", $nickname);
 $stmt->execute();
 $result_asig = $stmt->get_result();
 
+// Obtener el nombre del docente para el mensaje de bienvenida
+$query_docente = "
+    SELECT Docente 
+    FROM cursoasig 
+    WHERE nickname = ?
+    LIMIT 1
+";
+$stmt_docente = $conn->prepare($query_docente);
+$stmt_docente->bind_param("s", $nickname);
+$stmt_docente->execute();
+$result_docente = $stmt_docente->get_result();
+$row_docente = $result_docente->fetch_assoc();
+$docente_name = $row_docente['Docente'];
+
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +81,7 @@ $result_asig = $stmt->get_result();
 <body>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Bienvenido, <?php echo htmlspecialchars($nickname, ENT_QUOTES, 'UTF-8'); ?>!</h2>
+    <h2 class="mb-4">Bienvenido, <?php echo htmlspecialchars($docente_name, ENT_QUOTES, 'UTF-8'); ?>!</h2>
     <div class="row">
         <?php
         // Verificar si la consulta fue exitosa
@@ -83,8 +97,7 @@ $result_asig = $stmt->get_result();
                 <div class="card-header">
                     <div class="media">
                         <div class="media-body">
-                            <h4 class="card-title m-0"><span><?php echo htmlspecialchars($row['Docente'], ENT_QUOTES, 'UTF-8'); ?></span></h4>
-                            <small class="text-muted"><?php echo htmlspecialchars($row['Profesion'], ENT_QUOTES, 'UTF-8'); ?></small>
+                            <h4 class="card-title m-0"><span><?php echo htmlspecialchars($row['paraqcar'], ENT_QUOTES, 'UTF-8'); ?></span></h4>
                         </div>
                     </div>
                 </div>
@@ -92,13 +105,12 @@ $result_asig = $stmt->get_result();
                     <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <div class="card-body">
-                    <p><strong>Carrera:</strong> <?php echo htmlspecialchars($row['paraqcar'], ENT_QUOTES, 'UTF-8'); ?></p>
                     <p><strong>Grado:</strong> <?php echo htmlspecialchars($row['paraqgra'], ENT_QUOTES, 'UTF-8'); ?></p>
                     <p><strong>Materia:</strong> <?php echo htmlspecialchars($row['cursig'], ENT_QUOTES, 'UTF-8'); ?></p>
                 </div>
                 <div style="margin: 6px 6px 6px 80%;" id="divBtnVerCursos4117">
                     <a href="asignatura.php?carrera=<?php echo $row['paraqcar']; ?>" class="btn btn-info btn-circle">
-                        <i class="material-icons">ir</i>
+                        <i class="material-icons">Notas</i>
                     </a>
                 </div>
             </div>
