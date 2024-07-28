@@ -109,7 +109,7 @@ $docente_name = $row_docente['Docente'];
                     <p><strong>Materia:</strong> <?php echo htmlspecialchars($row['cursig'], ENT_QUOTES, 'UTF-8'); ?></p>
                 </div>
                 <div style="margin: 6px 6px 6px 80%;" id="divBtnVerCursos4117">
-                    <a href="Notas.php?carrera=<?php echo $row['paraqcar']; ?>" class="btn btn-info btn-circle">
+                    <a href="alunotas.php?carrera=<?php echo $row['paraqcar']; ?>&grado=<?php echo $row['paraqgra']; ?>" class="btn btn-info btn-circle">
                         <i class="material-icons">Notas</i>
                     </a>
                 </div>
