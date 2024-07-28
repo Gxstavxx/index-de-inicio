@@ -7,7 +7,7 @@ $query = "
         ca.id, 
         ca.Docente, 
         ca.Profesion AS Profesion,
-        nickname,
+        ca.nickname,
         c.Carrera AS paraqcar,
         g.grado AS paraqgra,
         cu.Materia AS cursig
@@ -25,8 +25,8 @@ $profesoresResult = $conn->query($profesoresQuery);
 $profesionesQuery = "SELECT DISTINCT Profesion FROM cursoasig";
 $profesionesResult = $conn->query($profesionesQuery);
 
-$profesionesQuery = "SELECT DISTINCT nickname FROM cursoasig";
-$profesionesResult = $conn->query($profesionesQuery);
+$nicknamesQuery = "SELECT DISTINCT nickname FROM cursoasig";
+$nicknamesResult = $conn->query($nicknamesQuery);
 
 $carrerasQuery = "SELECT DISTINCT c.Carrera FROM cursoasig ca LEFT JOIN Carrera c ON ca.paraqcar = c.id";
 $carrerasResult = $conn->query($carrerasQuery);
@@ -56,7 +56,7 @@ $materiasResult = $conn->query($materiasQuery);
         }
         .actions {
             display: flex;
-            gap: px; /* Espacio entre botones */
+            gap: 10px; /* Ajuste el espacio entre botones */
         }
         .actions .btn, .actions .form-control {
             width: auto; /* Ajusta el ancho a un valor más pequeño */
@@ -87,31 +87,37 @@ $materiasResult = $conn->query($materiasQuery);
                             <select id="filtroProfesor" class="form-control btn-filter">
                                 <option value="">Selecciona Profesor</option>
                                 <?php while($row = $profesoresResult->fetch_assoc()) { ?>
-                                    <option value="<?php echo $row['Docente']; ?>"><?php echo $row['Docente']; ?></option>
+                                    <option value="<?php echo htmlspecialchars($row['Docente']); ?>"><?php echo htmlspecialchars($row['Docente']); ?></option>
                                 <?php } ?>
                             </select>
                             <select id="filtroProfesion" class="form-control btn-filter">
                                 <option value="">Selecciona Profesión</option>
                                 <?php while($row = $profesionesResult->fetch_assoc()) { ?>
-                                    <option value="<?php echo $row['Profesion']; ?>"><?php echo $row['Profesion']; ?></option>
+                                    <option value="<?php echo htmlspecialchars($row['Profesion']); ?>"><?php echo htmlspecialchars($row['Profesion']); ?></option>
+                                <?php } ?>
+                            </select>
+                            <select id="filtroNickname" class="form-control btn-filter">
+                                <option value="">Selecciona Nickname</option>
+                                <?php while($row = $nicknamesResult->fetch_assoc()) { ?>
+                                    <option value="<?php echo htmlspecialchars($row['nickname']); ?>"><?php echo htmlspecialchars($row['nickname']); ?></option>
                                 <?php } ?>
                             </select>
                             <select id="filtroCarrera" class="form-control btn-filter">
                                 <option value="">Selecciona Carrera</option>
                                 <?php while($row = $carrerasResult->fetch_assoc()) { ?>
-                                    <option value="<?php echo $row['Carrera']; ?>"><?php echo $row['Carrera']; ?></option>
+                                    <option value="<?php echo htmlspecialchars($row['Carrera']); ?>"><?php echo htmlspecialchars($row['Carrera']); ?></option>
                                 <?php } ?>
                             </select>
                             <select id="filtroGrado" class="form-control btn-filter">
                                 <option value="">Selecciona Grado</option>
                                 <?php while($row = $gradosResult->fetch_assoc()) { ?>
-                                    <option value="<?php echo $row['grado']; ?>"><?php echo $row['grado']; ?></option>
+                                    <option value="<?php echo htmlspecialchars($row['grado']); ?>"><?php echo htmlspecialchars($row['grado']); ?></option>
                                 <?php } ?>
                             </select>
                             <select id="filtroMateria" class="form-control btn-filter">
                                 <option value="">Selecciona Materia</option>
                                 <?php while($row = $materiasResult->fetch_assoc()) { ?>
-                                    <option value="<?php echo $row['Materia']; ?>"><?php echo $row['Materia']; ?></option>
+                                    <option value="<?php echo htmlspecialchars($row['Materia']); ?>"><?php echo htmlspecialchars($row['Materia']); ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -134,22 +140,22 @@ $materiasResult = $conn->query($materiasQuery);
                                     while ($dat = $result->fetch_object()) {
                                 ?>
                                     <tr>
-                                        <td><?php echo $dat->id; ?></td>
-                                        <td><?php echo $dat->Docente; ?></td>
-                                        <td><?php echo $dat->nickname; ?></td>
-                                        <td><?php echo $dat->Profesion; ?></td>
-                                        <td><?php echo $dat->paraqcar; ?></td>
-                                        <td><?php echo $dat->paraqgra; ?></td>
-                                        <td><?php echo $dat->cursig; ?></td>
+                                        <td><?php echo htmlspecialchars($dat->id); ?></td>
+                                        <td><?php echo htmlspecialchars($dat->Docente); ?></td>
+                                        <td><?php echo htmlspecialchars($dat->nickname); ?></td>
+                                        <td><?php echo htmlspecialchars($dat->Profesion); ?></td>
+                                        <td><?php echo htmlspecialchars($dat->paraqcar); ?></td>
+                                        <td><?php echo htmlspecialchars($dat->paraqgra); ?></td>
+                                        <td><?php echo htmlspecialchars($dat->cursig); ?></td>
                                         <td class="actions">
-                                            <a href="editarasignatura.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
-                                            <a href="eliminar2.php?id=<?php echo $dat->id; ?>" class="btn btn-small btn-danger"><i class="fas fa-trash"></i></a>
+                                            <a href="editarasignatura.php?id=<?php echo htmlspecialchars($dat->id); ?>" class="btn btn-small btn-warning"><i class="fas fa-wrench"></i></a>
+                                            <a href="eliminar2.php?id=<?php echo htmlspecialchars($dat->id); ?>" class="btn btn-small btn-danger"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 <?php
                                     }
                                 } else {
-                                    echo "<tr><td colspan='7' class='text-center'>No se encontraron datos.</td></tr>";
+                                    echo "<tr><td colspan='8' class='text-center'>No se encontraron datos.</td></tr>";
                                 }
                                 ?>
                             </tbody>
@@ -165,35 +171,35 @@ $materiasResult = $conn->query($materiasQuery);
         function filtrarTabla() {
             var filtroProfesor = document.getElementById('filtroProfesor').value.toLowerCase();
             var filtroProfesion = document.getElementById('filtroProfesion').value.toLowerCase();
+            var filtroNickname = document.getElementById('filtroNickname').value.toLowerCase();
             var filtroCarrera = document.getElementById('filtroCarrera').value.toLowerCase();
             var filtroGrado = document.getElementById('filtroGrado').value.toLowerCase();
             var filtroMateria = document.getElementById('filtroMateria').value.toLowerCase();
+            
+            var tabla = document.getElementById('tablaResultados');
+            var filas = tabla.getElementsByTagName('tr');
 
-            var table = document.getElementById('tablaResultados');
-            var tr = table.getElementsByTagName('tr');
+            for (var i = 0; i < filas.length; i++) {
+                var celdas = filas[i].getElementsByTagName('td');
+                if (celdas.length > 0) {
+                    var profesor = celdas[1].textContent.toLowerCase();
+                    var profesion = celdas[3].textContent.toLowerCase();
+                    var nickname = celdas[2].textContent.toLowerCase();
+                    var carrera = celdas[4].textContent.toLowerCase();
+                    var grado = celdas[5].textContent.toLowerCase();
+                    var materia = celdas[6].textContent.toLowerCase();
 
-            for (var i = 0; i < tr.length; i++) {
-                var tdProfesor = tr[i].getElementsByTagName('td')[1];
-                var tdProfesion = tr[i].getElementsByTagName('td')[2];
-                var tdCarrera = tr[i].getElementsByTagName('td')[3];
-                var tdGrado = tr[i].getElementsByTagName('td')[4];
-                var tdMateria = tr[i].getElementsByTagName('td')[5];
-
-                if (tdProfesor && tdProfesion && tdCarrera && tdGrado && tdMateria) {
-                    var textProfesor = tdProfesor.textContent || tdProfesor.innerText;
-                    var textProfesion = tdProfesion.textContent || tdProfesion.innerText;
-                    var textCarrera = tdCarrera.textContent || tdCarrera.innerText;
-                    var textGrado = tdGrado.textContent || tdGrado.innerText;
-                    var textMateria = tdMateria.textContent || tdMateria.innerText;
-
-                    if (textProfesor.toLowerCase().indexOf(filtroProfesor) > -1 &&
-                        textProfesion.toLowerCase().indexOf(filtroProfesion
-                        textCarrera.toLowerCase().indexOf(filtroCarrera) > -1 &&
-                        textGrado.toLowerCase().indexOf(filtroGrado) > -1 &&
-                        textMateria.toLowerCase().indexOf(filtroMateria) > -1) {
-                        tr[i].style.display = "";
+                    if (
+                        (filtroProfesor === '' || profesor.indexOf(filtroProfesor) > -1) &&
+                        (filtroProfesion === '' || profesion.indexOf(filtroProfesion) > -1) &&
+                        (filtroNickname === '' || nickname.indexOf(filtroNickname) > -1) &&
+                        (filtroCarrera === '' || carrera.indexOf(filtroCarrera) > -1) &&
+                        (filtroGrado === '' || grado.indexOf(filtroGrado) > -1) &&
+                        (filtroMateria === '' || materia.indexOf(filtroMateria) > -1)
+                    ) {
+                        filas[i].style.display = '';
                     } else {
-                        tr[i].style.display = "none";
+                        filas[i].style.display = 'none';
                     }
                 }
             }
@@ -201,13 +207,10 @@ $materiasResult = $conn->query($materiasQuery);
 
         document.getElementById('filtroProfesor').addEventListener('change', filtrarTabla);
         document.getElementById('filtroProfesion').addEventListener('change', filtrarTabla);
+        document.getElementById('filtroNickname').addEventListener('change', filtrarTabla);
         document.getElementById('filtroCarrera').addEventListener('change', filtrarTabla);
         document.getElementById('filtroGrado').addEventListener('change', filtrarTabla);
         document.getElementById('filtroMateria').addEventListener('change', filtrarTabla);
     </script>
 </body>
 </html>
-
-<?php
-$conn->close();
-?>
