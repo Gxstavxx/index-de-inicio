@@ -7,6 +7,7 @@ $query = "
         ca.id, 
         ca.Docente, 
         ca.Profesion AS Profesion,
+        nickname,
         c.Carrera AS paraqcar,
         g.grado AS paraqgra,
         cu.Materia AS cursig
@@ -22,6 +23,9 @@ $profesoresQuery = "SELECT DISTINCT Docente FROM cursoasig";
 $profesoresResult = $conn->query($profesoresQuery);
 
 $profesionesQuery = "SELECT DISTINCT Profesion FROM cursoasig";
+$profesionesResult = $conn->query($profesionesQuery);
+
+$profesionesQuery = "SELECT DISTINCT nickname FROM cursoasig";
 $profesionesResult = $conn->query($profesionesQuery);
 
 $carrerasQuery = "SELECT DISTINCT c.Carrera FROM cursoasig ca LEFT JOIN Carrera c ON ca.paraqcar = c.id";
@@ -116,6 +120,7 @@ $materiasResult = $conn->query($materiasQuery);
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Profesor</th>
+                                    <th scope="col">Nickname</th>
                                     <th scope="col">Profesión</th>
                                     <th scope="col">Para qué Carrera</th>
                                     <th scope="col">Para qué Grado</th>
@@ -131,6 +136,7 @@ $materiasResult = $conn->query($materiasQuery);
                                     <tr>
                                         <td><?php echo $dat->id; ?></td>
                                         <td><?php echo $dat->Docente; ?></td>
+                                        <td><?php echo $dat->nickname; ?></td>
                                         <td><?php echo $dat->Profesion; ?></td>
                                         <td><?php echo $dat->paraqcar; ?></td>
                                         <td><?php echo $dat->paraqgra; ?></td>

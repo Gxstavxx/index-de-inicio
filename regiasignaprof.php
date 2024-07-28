@@ -1,8 +1,8 @@
 <?php
 include 'conexion.php';
 
-// Obtener todos los profesores junto con su profesión
-$sqlProf = "SELECT id, nombres, apellidos, profesion FROM prof";
+// Obtener todos los profesores junto con su profesión y nickname
+$sqlProf = "SELECT id, nombres, apellidos, profesion, nickname FROM prof";
 $resultProf = $conn->query($sqlProf);
 
 // Obtener todas las carreras
@@ -58,10 +58,10 @@ $error_message = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
 
                             <div class="mb-3">
                                 <label for="search" class="form-label">Seleccionar Profesor</label>
-                                <select id="search" name="profesor_id" class="form-select" required onchange="updateProfesion()">
+                                <select id="search" name="profesor_id" class="form-select" required onchange="updateProfesionAndNickname()">
                                     <option value="">Seleccione un profesor</option>
                                     <?php while ($row = $resultProf->fetch_assoc()) { ?>
-                                        <option value="<?php echo htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8'); ?>" data-profesion="<?php echo htmlspecialchars($row['profesion'], ENT_QUOTES, 'UTF-8'); ?>">
+                                        <option value="<?php echo htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8'); ?>" data-profesion="<?php echo htmlspecialchars($row['profesion'], ENT_QUOTES, 'UTF-8'); ?>" data-nickname="<?php echo htmlspecialchars($row['nickname'], ENT_QUOTES, 'UTF-8'); ?>">
                                             <?php echo htmlspecialchars($row['nombres'], ENT_QUOTES, 'UTF-8') . ' ' . htmlspecialchars($row['apellidos'], ENT_QUOTES, 'UTF-8') . ' (' . htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8') . ')'; ?>
                                         </option>
                                     <?php } ?>
@@ -71,6 +71,10 @@ $error_message = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
                                 <label for="profesion" class="form-label">Profesión</label>
                                 <input type="text" id="profesion" name="profesion" class="form-control" readonly required>
                                 <input type="hidden" id="hidden_profesion" name="hidden_profesion">
+                            </div>
+                            <div class="mb-3">
+                                <label for="nickname" class="form-label">Nickname</label>
+                                <input type="text" id="nickname" name="nickname" class="form-control" readonly required>
                             </div>
 
                             <div class="mb-3">
@@ -129,14 +133,17 @@ $error_message = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
-        function updateProfesion() {
+        function updateProfesionAndNickname() {
             const select = document.getElementById('search');
             const profesionInput = document.getElementById('profesion');
             const hiddenProfesion = document.getElementById('hidden_profesion');
+            const nicknameInput = document.getElementById('nickname');
             const selectedOption = select.options[select.selectedIndex];
             const profesion = selectedOption.getAttribute('data-profesion');
+            const nickname = selectedOption.getAttribute('data-nickname');
             profesionInput.value = profesion;
             hiddenProfesion.value = profesion;
+            nicknameInput.value = nickname;
         }
 
         function updateCarrera() {
@@ -157,16 +164,12 @@ $error_message = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
             selectedMateria.value = select.options[select.selectedIndex].text;
         }
 
-        // Validación del formulario en el lado del cliente
-        document.getElementById('assign-form').addEventListener('submit', function(event) {
-            let searchInput = document.getElementById('search').value.trim();
-            if (searchInput.length === 0) {
-                alert('Por favor, seleccione un profesor.');
-                event.preventDefault(); // Evita el envío del formulario
-            }
+        window.addEventListener('DOMContentLoaded', (event) => {
+            updateProfesionAndNickname();
+            updateCarrera();
+            updateGrado();
+            updateMateria();
         });
     </script>
 </body>
 </html>
-
-<?php $conn->close(); ?>

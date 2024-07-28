@@ -2,26 +2,27 @@
 session_start();
 include('conexion.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nickname = $_POST['nickname'];
-    $contraseña = md5($_POST['contraseña']); // Convertir la contraseña a MD5 para compararla
-
-    // Consulta para verificar si es administrador
+// Función para verificar las credenciales de administrador
+function verificarCredencialesAdmin($nickname, $contraseña) {
     $admins = array(
         array("nickname" => "gustavo-admin", "contraseña" => md5("38331665")),
         array("nickname" => "lizardo-admin", "contraseña" => md5("48913484"))
     );
 
-    function verificarCredenciales($nickname, $contraseña, $admins) {
-        foreach ($admins as $admin) {
-            if ($admin['nickname'] === $nickname && $admin['contraseña'] === $contraseña) {
-                return true;
-            }
+    foreach ($admins as $admin) {
+        if ($admin['nickname'] === $nickname && $admin['contraseña'] === $contraseña) {
+            return true;
         }
-        return false;
     }
+    return false;
+}
 
-    if (verificarCredenciales($nickname, $contraseña, $admins)) {
+// Verificar credenciales de administrador
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nickname = $_POST['nickname'];
+    $contraseña = md5($_POST['contraseña']); // Convertir la contraseña a MD5 para compararla
+
+    if (verificarCredencialesAdmin($nickname, $contraseña)) {
         $_SESSION['user'] = array("nickname" => $nickname);
         header("Location: interfazprincipal.php");
         exit();
@@ -57,6 +58,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Si no se encuentra al usuario en ninguna tabla, redirigir con un mensaje de error
     header("Location: index.php?error=Usuario o contraseña incorrectos");
+    exit();
+}
+
+// Redirigir si no hay sesión activa
+if (!isset($_SESSION['user'])) {
+    header("Location: index.php");
     exit();
 }
 ?>

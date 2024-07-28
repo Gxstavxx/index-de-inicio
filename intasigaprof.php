@@ -4,6 +4,7 @@ include 'conexion.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $profesor_id = $_POST['profesor_id'];
     $profesion = $_POST['profesion']; // Usar el campo oculto con el nuevo nombre
+    $nickname = $_POST['nickname']; // Usar el campo oculto con el nuevo nombre
     $carrera_id = $_POST['carrera_id'];
     $grado_id = $_POST['grado_id'];
     $curso_id = $_POST['curso_id'];
@@ -34,9 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $stmt->close();
         // Insertar el nuevo registro en la tabla CursoAsignado
-        $sqlInsert = "INSERT INTO cursoasig (Docente, paraqcar, paraqgra, Profesion, cursig) VALUES (?, ?, ?, ?, ?)";
+        $sqlInsert = "INSERT INTO cursoasig (Docente, paraqcar, paraqgra, Profesion, Nickname, cursig) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sqlInsert);
-        $stmt->bind_param("sissi", $docente, $carrera_id, $grado_id, $profesion, $curso_id);
+        $stmt->bind_param("sisssi", $docente, $carrera_id, $grado_id, $profesion, $nickname, $curso_id);
 
         if ($stmt->execute()) {
             $stmt->close();
