@@ -1,162 +1,200 @@
 <?php
 include "conexion.php";
 
-// Realizar la consulta SQL para obtener los datos con nombres de grado y carrera
-$query = "
-    SELECT e.id, 
-           e.nombres, 
-           e.apellidos, 
-           g.grado AS grado, 
-           c.carrera AS carrera 
-    FROM est e
-    LEFT JOIN Grado g ON e.grado = g.id
-    LEFT JOIN Carrera c ON e.carrera = c.id
-"; 
+// Verificar si el formulario ha sido enviado
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Recorre cada id de estudiante y procesa los datos correspondientes
+    foreach ($_POST['p1'] as $id => $p1) {
+        // Obtener los demás valores
+        $p2 = $_POST['p2'][$id];
+        $p3 = $_POST['p3'][$id];
+        $p4 = $_POST['p4'][$id];
+        $examen = $_POST['examen'][$id];
 
-$result = $conn->query($query);
+        // Obtener los detalles del estudiante, incluyendo los nombres de grado y carrera
+        $query = "
+            SELECT e.nombres, 
+                   e.apellidos, 
+                   g.grado AS grado, 
+                   c.carrera AS carrera 
+            FROM est e
+            LEFT JOIN Grado g ON e.grado = g.id
+            LEFT JOIN Carrera c ON e.carrera = c.id
+            WHERE e.id = ?
+        ";
+        $stmt_get = $conn->prepare($query);
+        $stmt_get->bind_param("i", $id);
+        $stmt_get->execute();
+        $result = $stmt_get->get_result();
+        $student = $result->fetch_assoc();
+        $nombres = $student['nombres'];
+        $apellidos = $student['apellidos'];
+        $grado = $student['grado'];
+        $carrera = $student['carrera'];
+
+        // Evaluar y actualizar cada campo individualmente
+        if (!empty($p1)) {
+            // Verificar si el registro ya existe en la tabla notasp1
+            $query_check = "SELECT id FROM notasp1 WHERE carrera = ? AND p1 = ?";
+            $stmt_check = $conn->prepare($query_check);
+            $stmt_check->bind_param("ss", $carrera, $p1);
+            $stmt_check->execute();
+            $stmt_check->store_result();
+
+            if ($stmt_check->num_rows === 0) {
+                // Insertar los datos en la tabla notasp1
+                $stmt = $conn->prepare("INSERT INTO notasp1 (nombres, apellidos, grado, carrera, p1) VALUES (?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssss", $nombres, $apellidos, $grado, $carrera, $p1);
+                try {
+                    $stmt->execute();
+                } catch (mysqli_sql_exception $e) {
+                    // Manejo de errores si ocurre un problema de duplicado
+                    if ($e->getCode() == 1062) {
+                        // Código de error para duplicado
+                        // Puedes registrar el error o manejarlo de alguna manera
+                    } else {
+                        throw $e; // Si no es un error de duplicado, relanza el error
+                    }
+                }
+                $stmt->close();
+            }
+            $stmt_check->close();
+        }
+
+        if (!empty($p2)) {
+            // Verificar si el registro ya existe en la tabla notasp2
+            $query_check = "SELECT id FROM notasp2 WHERE carrera = ? AND p2 = ?";
+            $stmt_check = $conn->prepare($query_check);
+            $stmt_check->bind_param("ss", $carrera, $p2);
+            $stmt_check->execute();
+            $stmt_check->store_result();
+
+            if ($stmt_check->num_rows === 0) {
+                // Insertar los datos en la tabla notasp2
+                $stmt = $conn->prepare("INSERT INTO notasp2 (nombres, apellidos, grado, carrera, p2) VALUES (?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssss", $nombres, $apellidos, $grado, $carrera, $p2);
+                try {
+                    $stmt->execute();
+                } catch (mysqli_sql_exception $e) {
+                    if ($e->getCode() == 1062) {
+                        // Manejo de error
+                    } else {
+                        throw $e;
+                    }
+                }
+                $stmt->close();
+            }
+            $stmt_check->close();
+        }
+
+        if (!empty($p3)) {
+            // Verificar si el registro ya existe en la tabla notasp3
+            $query_check = "SELECT id FROM notasp3 WHERE carrera = ? AND p3 = ?";
+            $stmt_check = $conn->prepare($query_check);
+            $stmt_check->bind_param("ss", $carrera, $p3);
+            $stmt_check->execute();
+            $stmt_check->store_result();
+
+            if ($stmt_check->num_rows === 0) {
+                // Insertar los datos en la tabla notasp3
+                $stmt = $conn->prepare("INSERT INTO notasp3 (nombres, apellidos, grado, carrera, p3) VALUES (?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssss", $nombres, $apellidos, $grado, $carrera, $p3);
+                try {
+                    $stmt->execute();
+                } catch (mysqli_sql_exception $e) {
+                    if ($e->getCode() == 1062) {
+                        // Manejo de error
+                    } else {
+                        throw $e;
+                    }
+                }
+                $stmt->close();
+            }
+            $stmt_check->close();
+        }
+
+        if (!empty($p4)) {
+            // Verificar si el registro ya existe en la tabla notasp4
+            $query_check = "SELECT id FROM notasp4 WHERE carrera = ? AND p4 = ?";
+            $stmt_check = $conn->prepare($query_check);
+            $stmt_check->bind_param("ss", $carrera, $p4);
+            $stmt_check->execute();
+            $stmt_check->store_result();
+
+            if ($stmt_check->num_rows === 0) {
+                // Insertar los datos en la tabla notasp4
+                $stmt = $conn->prepare("INSERT INTO notasp4 (nombres, apellidos, grado, carrera, p4) VALUES (?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssss", $nombres, $apellidos, $grado, $carrera, $p4);
+                try {
+                    $stmt->execute();
+                } catch (mysqli_sql_exception $e) {
+                    if ($e->getCode() == 1062) {
+                        // Manejo de error
+                    } else {
+                        throw $e;
+                    }
+                }
+                $stmt->close();
+            }
+            $stmt_check->close();
+        }
+
+        if (!empty($examen)) {
+            // Verificar si el registro ya existe en la tabla notasex
+            $query_check = "SELECT id FROM notasex WHERE carrera = ? AND Examen = ?";
+            $stmt_check = $conn->prepare($query_check);
+            $stmt_check->bind_param("ss", $carrera, $examen);
+            $stmt_check->execute();
+            $stmt_check->store_result();
+
+            if ($stmt_check->num_rows === 0) {
+                // Insertar los datos en la tabla notasex
+                $stmt = $conn->prepare("INSERT INTO notasex (nombres, apellidos, grado, carrera, Examen) VALUES (?, ?, ?, ?, ?)");
+                $stmt->bind_param("sssss", $nombres, $apellidos, $grado, $carrera, $examen);
+                try {
+                    $stmt->execute();
+                } catch (mysqli_sql_exception $e) {
+                    if ($e->getCode() == 1062) {
+                        // Manejo de error
+                    } else {
+                        throw $e;
+                    }
+                }
+                $stmt->close();
+            }
+            $stmt_check->close();
+        }
+
+        // Insertar el TOTAL en la tabla notastot
+        $total = $p1 + $p2 + $p3 + $p4 + $examen;
+        $query_check_total = "SELECT id FROM notastot WHERE carrera = ? AND TOTAL = ?";
+        $stmt_check_total = $conn->prepare($query_check_total);
+        $stmt_check_total->bind_param("ss", $carrera, $total);
+        $stmt_check_total->execute();
+        $stmt_check_total->store_result();
+
+        if ($stmt_check_total->num_rows === 0) {
+            $stmt_total = $conn->prepare("INSERT INTO notastot (nombres, apellidos, grado, carrera, TOTAL) VALUES (?, ?, ?, ?, ?)");
+            $stmt_total->bind_param("sssss", $nombres, $apellidos, $grado, $carrera, $total);
+            try {
+                $stmt_total->execute();
+            } catch (mysqli_sql_exception $e) {
+                if ($e->getCode() == 1062) {
+                    // Manejo de error
+                } else {
+                    throw $e;
+                }
+            }
+            $stmt_total->close();
+        }
+        $stmt_check_total->close();
+    }
+
+    // Cerrar la conexión
+    $conn->close();
+
+    // Redirigir a una página de éxito o mostrar un mensaje
+    header("Location: alunotas.php");
+    exit();
+}
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LISTA DE ALUMNOS</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        .container {
-            padding-top: 50px;
-        }
-        .btn-group .form-control {
-            margin-left: 10px;
-            width: 600px; /* Ajusta este valor según sea necesario */
-        }
-        .actions {
-            text-align: center;
-        }
-        /* Estilo para campos de entrada pequeños */
-        .form-control-sm {
-            max-width: 80px; /* Ajusta este valor según sea necesario */
-            width: 100%;
-        }
-        .btn-container {
-            display: flex;
-            justify-content: flex-end;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="text-center mb-4">REGISTRO DE NOTAS</h1>
-
-                <div class="card">
-                    <div class="card-body">
-                        <div class="btn-group btn-group-sm mb-3" role="group">
-                            <a href="interfazdocentes.php" class="btn btn-danger"><i class="fas fa-arrow-left"></i> Regresar</a>
-                            <a href="cerrar.php" class="btn btn-danger">Cerrar Sesión</a>
-                        </div>
-                        <form action="intalunotas.php" method="post">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nombres</th>
-                                        <th scope="col">Apellidos</th>
-                                        <th scope="col">Grado</th>
-                                        <th scope="col">Carrera</th>
-                                        <th scope="col">P1</th>
-                                        <th scope="col">P2</th>
-                                        <th scope="col">P3</th>
-                                        <th scope="col">P4</th>
-                                        <th scope="col">Examen</th>
-                                        <th scope="col">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table-body">
-                                    <?php
-                                    if ($result && $result->num_rows > 0) {
-                                        while ($dat = $result->fetch_object()) {
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $dat->id; ?></td>
-                                            <td><?php echo htmlspecialchars($dat->nombres, ENT_QUOTES, 'UTF-8'); ?></td>
-                                            <td><?php echo htmlspecialchars($dat->apellidos, ENT_QUOTES, 'UTF-8'); ?></td>
-                                            <td><?php echo htmlspecialchars($dat->grado, ENT_QUOTES, 'UTF-8'); ?></td>
-                                            <td><?php echo htmlspecialchars($dat->carrera, ENT_QUOTES, 'UTF-8'); ?></td>
-                                            <td><input type="number" name="p1[<?php echo $dat->id; ?>]" value="" class="form-control form-control-sm" max="15" data-max="15" /></td>
-                                            <td><input type="number" name="p2[<?php echo $dat->id; ?>]" value="" class="form-control form-control-sm" max="15" data-max="15" /></td>
-                                            <td><input type="number" name="p3[<?php echo $dat->id; ?>]" value="" class="form-control form-control-sm" max="15" data-max="15" /></td>
-                                            <td><input type="number" name="p4[<?php echo $dat->id; ?>]" value="" class="form-control form-control-sm" max="15" data-max="15" /></td>
-                                            <td><input type="number" name="examen[<?php echo $dat->id; ?>]" value="" class="form-control form-control-sm" max="40" data-max="40" /></td>
-                                            <td class="total"><span class="total-value">0</span></td>
-                                        </tr>
-                                    <?php
-                                        }
-                                        $result->close(); // Liberar el conjunto de resultados
-                                    } else {
-                                        echo "<tr><td colspan='11'>No hay registros encontrados</td></tr>";
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                            <div class="btn-container">
-                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        function calculateTotal() {
-            let rows = document.querySelectorAll('#table-body tr');
-
-            rows.forEach(row => {
-                let p1 = parseFloat(row.querySelector('input[name^="p1"]').value) || 0;
-                let p2 = parseFloat(row.querySelector('input[name^="p2"]').value) || 0;
-                let p3 = parseFloat(row.querySelector('input[name^="p3"]').value) || 0;
-                let p4 = parseFloat(row.querySelector('input[name^="p4"]').value) || 0;
-                let examen = parseFloat(row.querySelector('input[name^="examen"]').value) || 0;
-
-                // Verificar que los valores no superen los máximos permitidos
-                p1 = Math.min(p1, 15);
-                p2 = Math.min(p2, 15);
-                p3 = Math.min(p3, 15);
-                p4 = Math.min(p4, 15);
-                examen = Math.min(examen, 40);
-
-                row.querySelector('input[name^="p1"]').value = p1;
-                row.querySelector('input[name^="p2"]').value = p2;
-                row.querySelector('input[name^="p3"]').value = p3;
-                row.querySelector('input[name^="p4"]').value = p4;
-                row.querySelector('input[name^="examen"]').value = examen;
-
-                let total = p1 + p2 + p3 + p4 + examen;
-                row.querySelector('.total-value').textContent = total;
-            });
-        }
-
-        // Calculate totals on input change
-        document.querySelectorAll('#table-body input').forEach(input => {
-            input.addEventListener('input', calculateTotal);
-        });
-
-        // Initial calculation
-        calculateTotal();
-    </script>
-</body>
-</html>
-
-<?php $conn->close(); ?>
